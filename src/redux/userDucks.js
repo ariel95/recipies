@@ -84,7 +84,6 @@ export const readUserActiveAction = () => (dispatch) => {
 }
 
 export const signOutAction = () => (dispatch) => {
-    console.log("Sign out action");
     auth.signOut()
     localStorage.removeItem('user')
     dispatch({
@@ -92,7 +91,7 @@ export const signOutAction = () => (dispatch) => {
     })
 }
 
-export const updateUserAction = (nombreActualizado) => async (dispatch, getState) => {
+export const updateUserAction = (newName) => async (dispatch, getState) => {
     dispatch({
         type: LOADING
     })
@@ -103,12 +102,12 @@ export const updateUserAction = (nombreActualizado) => async (dispatch, getState
     try {
         
         await db.collection('users').doc(user.email).update({
-            displayName: nombreActualizado
+            displayName: newName
         })
 
         const dataUser = {
             ...user,
-            displayName: nombreActualizado
+            displayName: newName
         }
 
         dispatch({
@@ -122,7 +121,7 @@ export const updateUserAction = (nombreActualizado) => async (dispatch, getState
     }
 }
 
-export const editarFotoAccion = (imagenEditada) => async(dispatch, getState) => {
+export const editProfilePictureAction = (newImage) => async(dispatch, getState) => {
 
     dispatch({
         type: LOADING
@@ -134,17 +133,17 @@ export const editarFotoAccion = (imagenEditada) => async(dispatch, getState) => 
 
         const {user} = getState().user
 
-        const imagenRef = await storage.ref().child(user.email).child('foto perfil')
-        await imagenRef.put(imagenEditada)
-        const imagenURL = await imagenRef.getDownloadURL()
+        const imageRef = await storage.ref().child(user.email).child('profilePicture')
+        await imageRef.put(newImage)
+        const imageURL = await imageRef.getDownloadURL()
 
         await db.collection('users').doc(user.email).update({
-            photoURL: imagenURL
+            photoURL: imageURL
         })
 
         const dataUser = {
             ...user,
-            photoURL: imagenURL
+            photoURL: imageURL
         }
 
         dispatch({

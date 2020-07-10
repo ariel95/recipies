@@ -1,5 +1,8 @@
 import React from 'react'
 import '../public/css/TopNavbar.css'
+
+import {withRouter} from 'react-router-dom'
+
 const TopNavbar = (props) => {
 
     const defaultContent = () => {
@@ -15,6 +18,7 @@ const TopNavbar = (props) => {
         <nav id="top-navbar" className="navbar navbar-light bg-light top-navbar">
             {props.children ? (
                 props.children
+                
             ) : (
                 defaultContent()                
             )
@@ -23,4 +27,4 @@ const TopNavbar = (props) => {
     )
 }
 
-export default TopNavbar
+export default withRouter(TopNavbar)

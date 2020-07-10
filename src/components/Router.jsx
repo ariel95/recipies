@@ -13,6 +13,7 @@ import NotFound from '../components/NotFound';
 import TopNavbar from './TopNavbar';
 import DownNavbar from './DownNavbar';
 import Profile from './Profile';
+import EditProfile from './EditProfile';
 
 function RouterApp() {
   const [firebaseUser, setFirebaseUser] = React.useState(false)
@@ -56,7 +57,8 @@ function RouterApp() {
         firebaseUser !== false ? (
           <Switch>
             <Route component={Home} path="/" exact />
-            <PrivateRoute component={Profile} path="/profile" exact />
+            <PrivateRoute component={Profile} path="/Profile" exact />
+            <PrivateRoute component={EditProfile} path="/EditProfile" exact />
             <Route component={NotFound} path="*" />
           </Switch>
         ) : (

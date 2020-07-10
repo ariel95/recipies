@@ -1,12 +1,13 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 
-// import recipieReducer from './recipiesDucks'
+import recipieReducer from './recipiesDucks'
 import userReducer, {readUserActiveAction} from './userDucks'
+
 
 const rootReducer = combineReducers({
     //pokemones: pokeReducer,
-    // recipie: recipieReducer,
+    recipie: recipieReducer,
     user: userReducer
 })
 

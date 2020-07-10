@@ -29,6 +29,10 @@ const Profile = (props) => {
             </TopNavbar>
             <div id="profile">
                 Profile with my recipies
+                <button 
+                    className="btn btn-dark"
+                    onClick={() => props.history.push("/EditProfile")}
+                >Edit profile</button>
             </div>
         </>
     )
