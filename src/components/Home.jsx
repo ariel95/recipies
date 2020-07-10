@@ -1,13 +1,18 @@
 import React from 'react'
+import TopNavbar from './TopNavbar';
 
 const Home = () => {
 
     console.log("hola home");
 
     return (
-        <div>
-            home
-        </div>
+        <>
+            <TopNavbar />
+            <div>
+                home
+            </div>
+        </>
+
     )
 }
 

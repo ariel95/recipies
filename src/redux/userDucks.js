@@ -84,6 +84,7 @@ export const readUserActiveAction = () => (dispatch) => {
 }
 
 export const signOutAction = () => (dispatch) => {
+    console.log("Sign out action");
     auth.signOut()
     localStorage.removeItem('user')
     dispatch({

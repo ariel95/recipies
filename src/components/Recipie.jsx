@@ -1,14 +1,9 @@
 import React from 'react';
 
 const Recipie = () => {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
-    <div className="card mb-3" style="max-width: 540px;">
+    <div className="card mb-3">
       <div className="row no-gutters">
         <div className="col-md-4">
           <img src="..." className="card-img" alt="..." />

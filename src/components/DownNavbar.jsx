@@ -1,16 +1,32 @@
 import React from 'react'
 import '../public/css/DownNavbar.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faSearch, faHeart, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const DownNavbar = () => {
   return (
     <nav id="down-navbar" className="navbar fixed-bottom navbar-light bg-light down-navbar">
-      
-      <div class="d-flex justify-content-around">
-        <a className="navbar-brand" href="/">Home</a>
-        <a className="navbar-brand" href="/akjsdlkj">Not</a>
-        <a className="navbar-brand" href="/myRecipies">My recipies</a>
-        <a className="navbar-brand" href="/profile">Profile</a>
-        
+      <div className="d-flex justify-content-around">
+        <div className="flex-item">
+          <a className="navbar-brand" href="/">
+            <FontAwesomeIcon icon={faHome} />
+          </a>
+        </div>
+        <div className="flex-item">
+          <a className="navbar-brand flex-item" href="/search">
+            <FontAwesomeIcon icon={faSearch} />
+          </a>
+        </div>
+        <div className="flex-item">
+          <a className="navbar-brand flex-item" href="/myRecipies">
+            <FontAwesomeIcon icon={faHeart} />
+          </a>
+        </div>
+        <div className="flex-item">
+          <a className="navbar-brand flex-item" href="/profile">
+            <FontAwesomeIcon icon={faUser} />
+          </a>
+        </div>
       </div>
     </nav>
   )

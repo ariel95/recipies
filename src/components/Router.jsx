@@ -12,7 +12,7 @@ import Home from '../components/Home'
 import NotFound from '../components/NotFound';
 import TopNavbar from './TopNavbar';
 import DownNavbar from './DownNavbar';
-import Profile from './Recipie';
+import Profile from './Profile';
 
 function RouterApp() {
   const [firebaseUser, setFirebaseUser] = React.useState(false)
@@ -31,6 +31,7 @@ function RouterApp() {
     fetchUser()
   }, [])
 
+
   const PrivateRoute = ({ component, path, ...rest }) => {
     if (localStorage.getItem('user')) {
       const usuarioStorage = JSON.parse(localStorage.getItem('user'))
@@ -39,24 +40,37 @@ function RouterApp() {
       if (usuarioStorage.uid === firebaseUser.uid) {
         return <Route component={component} path={path} {...rest} />
       } else {
-        return <Redirect to="/signIn" {...rest} />
+        window.location.href = "/SignIn"
+        return;
       }
     } else {
-      return <Redirect to="/signIn" {...rest} />
+      window.location.href = "/SignIn"
+      return;
     }
   }
 
-  return firebaseUser !== false ? (
+  return (
     <Router>
-      <TopNavbar />
-        <Switch>
-          <Route component={Home} path="/" exact />
-          <PrivateRoute component={Profile} path="/profile" exact />
-          <Route component={NotFound} path="*" />
-        </Switch>
+
+      {
+        firebaseUser !== false ? (
+          <Switch>
+            <Route component={Home} path="/" exact />
+            <PrivateRoute component={Profile} path="/profile" exact />
+            <Route component={NotFound} path="*" />
+          </Switch>
+        ) : (
+          <div>
+            <TopNavbar />
+            <div>Cargando...</div>
+          </div>
+          
+          )
+      }
+
       <DownNavbar />
     </Router>
-  ) : (<div>Cargando...</div>)
+  )
 
 }
 
