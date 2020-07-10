@@ -1,0 +1,32 @@
+#sign-in.portada{
+    background: url("../img/home-5.jpg") no-repeat fixed center;
+    -webkit-background-size: cover; 
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100% ;
+    text-align: center;
+    color: #e8e8e8;
+ }
+
+ #sign-in .content{
+    height: 100vh;   
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+ }
+
+#sign-in .text {
+    margin: 30px 25px 30px 25px;	
+    padding: 30px;
+    background: rgba(0,0,0,0.5);
+    top: 30%;
+    position: relative;
+}
+
+@media (max-width: 600px) {
+    #sign-in .content{
+        width: 100%;
+    }
+}

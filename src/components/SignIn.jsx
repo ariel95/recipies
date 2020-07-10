@@ -6,6 +6,7 @@ import { signInAction } from '../redux/userDucks'
 
 import { withRouter } from 'react-router-dom'
 import Copyright from './Copyright'
+import '../public/css/SignIn.css'
 
 const SignIn = (props) => {
 
@@ -27,12 +28,16 @@ const SignIn = (props) => {
     }
 
     return (
-        <div>
-            <h3>Sign In</h3>
-            <button
-                onClick={onClickGoogleAuth}
-                className="btn btn-dark"
-            >Sign in with google</button>
+        <div id="sign-in" className="portada">
+            <div className="content">
+                <div className="text">
+                    <h3>Sign In</h3>
+                    <button
+                        onClick={onClickGoogleAuth}
+                        className="btn btn-light mt-2"
+                    >Sign in with google</button>
+                </div>
+            </div>
 
         </div>
     )

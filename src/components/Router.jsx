@@ -64,7 +64,6 @@ function RouterApp() {
             <TopNavbar />
             <div>Cargando...</div>
           </div>
-          
           )
       }
 

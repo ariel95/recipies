@@ -1,0 +1,27 @@
+#not-found.portada{
+    background: url("../img/not-found.jpg") no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100% ;
+    text-align: center;
+    color: #e8e8e8;
+ }
+
+ #not-found .text{
+    display: table-cell;
+    vertical-align: middle;
+    height: 92vh;   
+    margin: 30px 25px 30px 25px;	
+    padding: 10px;
+    background: rgba(0,0,0,0.5);
+    /* display: inline-block; */
+ }
+
+ @media (min-width: 1000px) {
+    #not-found .text{
+        width: 65%;
+    }
+ }
