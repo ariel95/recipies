@@ -13,6 +13,7 @@ import TopNavbar from './TopNavbar';
 import DownNavbar from './DownNavbar';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
+import NewRecipie from './NewRecipie';
 
 function RouterApp() {
   const [firebaseUser, setFirebaseUser] = React.useState(false)
@@ -58,6 +59,7 @@ function RouterApp() {
             <Route component={Home} path="/" exact />
             <PrivateRoute component={Profile} path="/Profile" exact />
             <PrivateRoute component={EditProfile} path="/EditProfile" exact />
+            <PrivateRoute component={NewRecipie} path="/NewRecipie" exact />
             <Route component={NotFound} path="*" />
           </Switch>
         ) : (

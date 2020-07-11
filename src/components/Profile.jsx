@@ -5,6 +5,7 @@ import { signOutAction } from '../redux/userDucks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import {withRouter} from 'react-router-dom'
+import MyRecipies from './MyRecipies'
 
 const Profile = (props) => {
 
@@ -37,6 +38,7 @@ const Profile = (props) => {
                     className="btn btn-dark"
                     onClick={() => props.history.push("/EditProfile")}
                 >Edit profile</button>
+                <MyRecipies />
             </div>
         </>
     )
