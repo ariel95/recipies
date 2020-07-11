@@ -1,0 +1,13 @@
+
+
+@media (max-width: 692px) {
+    .recipie.card{
+        border: none;
+    }
+}
+@media (min-width: 692px) {
+    .recipie.card{
+        margin-left: 15%;
+        margin-right: 15%;  
+    }
+}

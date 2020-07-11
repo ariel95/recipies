@@ -1,4 +1,5 @@
 import React from 'react';
+import '../public/css/Recipie.css'
 var moment = require('moment'); // require
 
 const Recipie = (props) => {
@@ -9,8 +10,11 @@ const Recipie = (props) => {
   }
 
   return (
-    <div className="card">
+    <div className="recipie card">
       <div className="row no-gutters">
+        {/* <div className="col-12 header">
+          {"hola soy el encabezado"}
+        </div> */}
         <div className="col-md-4">
           <img src={props.data.imageUrl} className="card-img" alt="..." />
         </div>

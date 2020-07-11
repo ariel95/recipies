@@ -9,20 +9,19 @@ import '../public/css/SignIn.css'
 const SignIn = (props) => {
 
     const dispatch = useDispatch()
-    // const loading = useSelector(store => store.user.loading)
-    const activo = useSelector(store => store.user.activo)
+    const loading = useSelector(store => store.user.loading)
+    const active = useSelector(store => store.user.active)
     // const [emailMethod, setEmailMethod] = React.useState(false);
 
     React.useEffect(() => {
-        // console.log(activo)
-        if (activo) {
+        if (active) {
             props.history.push('/')
         }
-    }, [activo, props.history])
+    }, [active, props.history])
 
     const onClickGoogleAuth = () => {
         dispatch(signInAction());
-        props.history.push('/');
+        // props.history.push('/');
     }
 
     return (
@@ -33,7 +32,18 @@ const SignIn = (props) => {
                     <button
                         onClick={onClickGoogleAuth}
                         className="btn btn-light mt-2"
-                    >Sign in with google</button>
+                    >
+                    {
+                        !loading ?
+                           "Sign in with google"
+                           : (
+                            <div className="spinner-border" style={{width: "25px", height: "25px"}} role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                           )
+                        
+                    }
+                    </button>
                 </div>
             </div>
 

@@ -59,12 +59,15 @@ export const getRecipies = () => async(dispatch, getState) => {
     })
     // const user = JSON.parse(localStorage.getItem('user'));
     // const {user} = getState().user
+
+    
+
     const arrayOfRecipies = [];
     await db.collection('recipies').orderBy("date", "desc").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let data = doc.data();
-            data = {...data, uid: doc.id};
+            data = {...data, id: doc.id};
             arrayOfRecipies.push(data);
         });
         dispatch({
@@ -82,7 +85,7 @@ export const addRecipie = (recipie, image) => async(dispatch, getState) => {
         type: LOADING
     })
     const {user} = getState().user
-
+ 
     //Add the image url to the recipie
     let imageURL = "" 
     if(image){
