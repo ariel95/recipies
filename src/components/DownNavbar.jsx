@@ -18,6 +18,11 @@ const DownNavbar = () => {
           </a>
         </div>
         <div className="flex-item">
+          <a className="navbar-brand flex-item" href="/newRecipie">
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
+        </div>
+        <div className="flex-item">
           <a className="navbar-brand flex-item" href="/myRecipies">
             <FontAwesomeIcon icon={faHeart} />
           </a>

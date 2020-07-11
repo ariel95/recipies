@@ -91,7 +91,7 @@ export const signOutAction = () => (dispatch) => {
     })
 }
 
-export const updateUserAction = (newName) => async (dispatch, getState) => {
+export const updateUserAction = (data) => async (dispatch, getState) => {
     dispatch({
         type: LOADING
     })
@@ -102,12 +102,12 @@ export const updateUserAction = (newName) => async (dispatch, getState) => {
     try {
         
         await db.collection('users').doc(user.email).update({
-            displayName: newName
+            displayName: data.displayName
         })
 
         const dataUser = {
             ...user,
-            displayName: newName
+            displayName: data.displayName
         }
 
         dispatch({
@@ -133,7 +133,7 @@ export const editProfilePictureAction = (newImage) => async(dispatch, getState) 
 
         const {user} = getState().user
 
-        const imageRef = await storage.ref().child(user.email).child('profilePicture')
+        const imageRef = await storage.ref().child(user.email).child('Profile picture')
         await imageRef.put(newImage)
         const imageURL = await imageRef.getDownloadURL()
 

@@ -10,3 +10,7 @@ body {
 .navbar-brand{
   margin-right: 0;
 }
+
+input:focus{
+  outline: none;
+}

@@ -1,11 +1,9 @@
 
 import React from 'react'
-// import {UserContext} from '../context/UserProvider'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../redux/userDucks'
 
 import { withRouter } from 'react-router-dom'
-import Copyright from './Copyright'
 import '../public/css/SignIn.css'
 
 const SignIn = (props) => {
@@ -13,7 +11,7 @@ const SignIn = (props) => {
     const dispatch = useDispatch()
     // const loading = useSelector(store => store.user.loading)
     const activo = useSelector(store => store.user.activo)
-    const [emailMethod, setEmailMethod] = React.useState(false);
+    // const [emailMethod, setEmailMethod] = React.useState(false);
 
     React.useEffect(() => {
         // console.log(activo)

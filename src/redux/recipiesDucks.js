@@ -1,5 +1,5 @@
-import axios from 'axios'
-import {auth, firebase, db, storage} from '../firebase'
+// import axios from 'axios'
+import {db} from '../firebase'
 
 // constant
 const dataInicial = {
@@ -54,7 +54,7 @@ export const getRecipies = () => async(dispatch, getState) => {
         type: LOADING
     })
     // const user = JSON.parse(localStorage.getItem('user'));
-    const {user} = getState().user
+    // const {user} = getState().user
     const arrayOfRecipies = [];
     await db.collection('recipies').orderBy("date").get()
     .then(function(querySnapshot) {

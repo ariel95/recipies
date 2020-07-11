@@ -1,0 +1,33 @@
+#edit-profile .card{
+    max-width: 300px;
+    margin: auto;
+    margin-top: 25px;
+    
+}
+
+#edit-profile .profile-picture{
+    text-align: center  ;
+}
+
+#edit-profile .profile-picture img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+#edit-profile form input {
+    width: 100%;
+    border:none;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+#edit-profile form .form-group label {
+    color: #b0b0b0;
+    font-size: 14px;
+}
+
+#edit-profile .choose-pic{
+    background: none;
+    color: #ff126c;
+    border: none;
+}

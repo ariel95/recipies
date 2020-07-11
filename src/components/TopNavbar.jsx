@@ -7,7 +7,7 @@ const TopNavbar = (props) => {
 
     const defaultContent = () => {
         return (
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
                 <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
                     Recipies
             </a>
@@ -15,7 +15,7 @@ const TopNavbar = (props) => {
     }
 
     return (
-        <nav id="top-navbar" className="navbar navbar-light bg-light top-navbar">
+        <nav id="top-navbar" className="navbar navbar-light bg-light top-navbar px-4">
             {props.children ? (
                 props.children
                 

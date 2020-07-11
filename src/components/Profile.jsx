@@ -19,16 +19,20 @@ const Profile = (props) => {
     return (
         <>
             <TopNavbar>
-                <a className="navbar-brand" href="#">
-                    <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
+                <span className="navbar-brand">
+                    {/* <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" /> */}
                     {user.user.displayName}
-                </a>
-                <a className="navbar-brand" onClick={onClickSignOut}>
+                </span>
+                <span className="navbar-brand" onClick={onClickSignOut}>
                     <FontAwesomeIcon icon={faSignOutAlt} />
-                </a>
+                </span>
             </TopNavbar>
             <div id="profile">
-                Profile with my recipies
+                <div>
+
+                    <label>Name: </label><p>{user.user.displayName}</p>
+                    <label>Email: </label><p>{user.user.email}</p>
+                </div>
                 <button 
                     className="btn btn-dark"
                     onClick={() => props.history.push("/EditProfile")}

@@ -13,7 +13,7 @@ const Home = () => {
         dispatch(getRecipies());
         console.log("Recipies: ",recipies);
         console.log("Recipies.results: ", recipies.results);
-    },[recipies.hasLookedForData])
+    },[recipies.hasLookedForData, dispatch])
 
     return (
         <>
@@ -21,10 +21,12 @@ const Home = () => {
             <div id="home">
                 {
                     recipies.hasLookedForData ? 
-                        recipies.results.map(recipie => (
-                            <Recipie data={recipie} key={recipie.uid} />
-                        )) : 
-                        <div>Cargando</div>
+                        ( recipies.results.length > 0 ? 
+                            (recipies.results.map(recipie => (
+                                <Recipie data={recipie} key={recipie.uid} />
+                            ))): (<div>No data</div>)
+                        ) : 
+                        <div>Cargando...</div>
                 }
             </div>
         </>
