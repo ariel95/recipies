@@ -33,14 +33,14 @@ export const getMyRecipies = () => async(dispatch, getState) => {
     dispatch({
         type: LOADING
     })
-    // const user = JSON.parse(localStorage.getItem('user'));
+
     const {user} = getState().user
     const arrayOfRecipies = [];
     await db.collection('recipies').where("uid", "==", user.uid).orderBy("date", "desc").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let data = doc.data();
-            data = {...data, uid: doc.id};
+            data = {...data, id: doc.id };
             arrayOfRecipies.push(data);
         });
         dispatch({
@@ -57,16 +57,14 @@ export const getRecipies = () => async(dispatch, getState) => {
     dispatch({
         type: LOADING
     })
-    // const user = JSON.parse(localStorage.getItem('user'));
-    // const {user} = getState().user
-
-    
-
+    // .startAt(1000000)
+    // .limit(3)
     const arrayOfRecipies = [];
-    await db.collection('recipies').orderBy("date", "desc").get()
+    await db.collection('recipies').orderBy("date", "desc").startAfter(2).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let data = doc.data();
+            console.log(data)
             data = {...data, id: doc.id};
             arrayOfRecipies.push(data);
         });
@@ -99,7 +97,7 @@ export const addRecipie = (recipie, image) => async(dispatch, getState) => {
     }
     
     //Add user id and date to the recipie
-    recipie = {...recipie, uid: user.uid, date: new Date()}
+    recipie = {...recipie, user: user, date: new Date()}
 
     //Add the recipie    
     db.collection("recipies").add(recipie)

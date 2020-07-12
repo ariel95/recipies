@@ -12,9 +12,25 @@ const Recipie = (props) => {
   return (
     <div className="recipie card">
       <div className="row no-gutters">
-        {/* <div className="col-12 header">
-          {"hola soy el encabezado"}
-        </div> */}
+        {
+          props.data.user && (
+            <div class="d-flex flex-row bd-highlight card-header col-12">
+              <div className="profile-picture">
+                <img src={props.data.user.photoURL} alt=""/>
+              </div>
+              <div class="p-2 profile-name">{props.data.user.displayName}</div>
+            </div>
+            // <div className="col-12 card-header row">
+            //   <div className="profile-picture col-1">
+            //     <img src={props.data.user.photoURL} alt=""/>
+            //   </div>
+            //   <div className="col-11 ">
+            //     {props.data.user.displayName}
+            //   </div>
+            // </div>
+          )
+        }
+        
         <div className="col-md-4">
           <img src={props.data.imageUrl} className="card-img" alt="..." />
         </div>

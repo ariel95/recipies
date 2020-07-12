@@ -1,4 +1,22 @@
+.recipie.card .profile-picture img{
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+}
 
+.recipie.card .profile-name{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.recipie.card .card-header{
+    padding-left: 30px;
+    padding-right: 30px;
+    border-top: 1px solid #e6e6e6;
+    border-radius: 0;
+}
 
 @media (max-width: 692px) {
     .recipie.card{

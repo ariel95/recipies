@@ -23,7 +23,7 @@ const Home = () => {
                     recipies.hasLookedForData ? 
                         ( recipies.results.length > 0 ? 
                             (recipies.results.map(recipie => (
-                                <Recipie data={recipie} key={recipie.uid} />
+                                <Recipie data={recipie} key={recipie.id} />
                             ))): (<div>No data</div>)
                         ) : 
                         <div>Cargando...</div>
