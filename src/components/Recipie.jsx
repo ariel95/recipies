@@ -1,43 +1,64 @@
 import React from 'react';
 import '../public/css/Recipie.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
+import { deleteRecipie } from '../redux/recipiesDucks'
+
 var moment = require('moment'); // require
 
 const Recipie = (props) => {
 
+  const dataRecipie = props.data;
+  const dispatch = useDispatch();
   const getDate = () => {
-    const recipieDate = props.data.date.toDate();
+    const recipieDate = dataRecipie.date.toDate();
     return moment(recipieDate).startOf('seconds').fromNow();
+  }
+
+  const onClickDelete = (id) => {
+      dispatch(deleteRecipie(id));
   }
 
   return (
     <div className="recipie card">
       <div className="row no-gutters">
         {
-          props.data.user && (
-            <div class="d-flex flex-row bd-highlight card-header col-12">
+          dataRecipie.user && (
+            <div className="d-flex flex-row bd-highlight card-header col-12">
               <div className="profile-picture">
-                <img src={props.data.user.photoURL} alt=""/>
+                <img src={dataRecipie.user.photoURL} alt="" />
               </div>
-              <div class="p-2 profile-name">{props.data.user.displayName}</div>
+              <div className="p-2 profile-name">
+                {dataRecipie.user.displayName}
+              </div>
+              <div className="actions">
+                <div className="btn-group dropleft">
+                  <button className="btn-actions" data-toggle="dropdown">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                  </button>
+
+                  <div className="dropdown-menu">
+                    <button 
+                      className="dropdown-item" 
+                      type="button"
+                      onClick={() => onClickDelete(dataRecipie.id)}  
+                    >Delete</button>
+                    {/* <button className="dropdown-item" type="button">Action2</button> */}
+                  </div>
+                </div>
+              </div>
             </div>
-            // <div className="col-12 card-header row">
-            //   <div className="profile-picture col-1">
-            //     <img src={props.data.user.photoURL} alt=""/>
-            //   </div>
-            //   <div className="col-11 ">
-            //     {props.data.user.displayName}
-            //   </div>
-            // </div>
           )
         }
-        
+
         <div className="col-md-4">
-          <img src={props.data.imageUrl} className="card-img" alt="..." />
+          <img src={dataRecipie.imageUrl} className="card-img" alt="..." />
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title">{props.data.name}</h5>
-            <p className="card-text">{props.data.description}</p>
+            <h5 className="card-title">{dataRecipie.name}</h5>
+            <p className="card-text">{dataRecipie.description}</p>
             <p className="card-text"><small className="text-muted">{getDate()}</small></p>
           </div>
         </div>

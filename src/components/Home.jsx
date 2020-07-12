@@ -11,9 +11,7 @@ const Home = () => {
     
     React.useEffect(() => {
         dispatch(getRecipies());
-        // console.log("Recipies: ",recipies);
-        // console.log("Recipies.results: ", recipies.results);
-    },[recipies.hasLookedForData, dispatch])
+    },[recipies.hasLookedForData, recipies.hasToUpdate ,dispatch])
 
     return (
         <>

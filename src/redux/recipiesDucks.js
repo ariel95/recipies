@@ -1,10 +1,12 @@
 // import axios from 'axios'
-import {db, storage} from '../firebase'
+import { db, storage } from '../firebase'
 
 // constant
 const dataInicial = {
+    hasToUpdate: false,
+    loading: false,
     count: 0,
-    hasLookedForData:false,
+    hasLookedForData: false,
     results: []
 }
 
@@ -13,104 +15,143 @@ const LOADING = 'LOADING'
 const ERROR = 'ERROR'
 const GET_RECIPIES_SUCCESS = 'GET_RECIPIES_SUCCESS'
 const ADD_RECIPIE_SUCCESS = 'ADD_RECIPIE_SUCCESS'
+const DELETE_RECIPIE_SUCCESS = 'DELETE_RECIPIE_SUCCESS'
 
 // reducer
-export default function userReducer (state = dataInicial, action) {
-    switch(action.type){
+export default function userReducer(state = dataInicial, action) {
+    switch (action.type) {
         case LOADING:
-            return {...state, loading: true}
+            return { ...state, loading: true }
         case GET_RECIPIES_SUCCESS:
-            return {...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true}
+            return { ...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true }
         case ADD_RECIPIE_SUCCESS:
-            return {...state, loading: false}
+            return { ...state, loading: false,  }
+        case DELETE_RECIPIE_SUCCESS:
+            return { ...state, loading: false, hasToUpdate: true }
         default:
-            return {...state}
+            return { ...state }
     }
 }
 
 // action
-export const getMyRecipies = () => async(dispatch, getState) => {
+export const getMyRecipies = () => async (dispatch, getState) => {
     dispatch({
         type: LOADING
     })
 
-    const {user} = getState().user
+    const { user } = getState().user
     const arrayOfRecipies = [];
     await db.collection('recipies').where("uid", "==", user.uid).orderBy("date", "desc").get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            let data = doc.data();
-            data = {...data, id: doc.id };
-            arrayOfRecipies.push(data);
-        });
-        dispatch({
-            type: GET_RECIPIES_SUCCESS,
-            payload: arrayOfRecipies 
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let data = doc.data();
+                data = { ...data, id: doc.id };
+                arrayOfRecipies.push(data);
+            });
+            dispatch({
+                type: GET_RECIPIES_SUCCESS,
+                payload: arrayOfRecipies
+            })
         })
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
 }
 
-export const getRecipies = () => async(dispatch, getState) => {
+export const getRecipies = () => async (dispatch, getState) => {
     dispatch({
         type: LOADING
     })
     // .startAt(1000000)
     // .limit(3)
     const arrayOfRecipies = [];
-    await db.collection('recipies').orderBy("date", "desc").startAfter(2).get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            let data = doc.data();
-            console.log(data)
-            data = {...data, id: doc.id};
-            arrayOfRecipies.push(data);
-        });
-        dispatch({
-            type: GET_RECIPIES_SUCCESS,
-            payload: arrayOfRecipies 
+    await db.collection('recipies').orderBy("date", "desc").get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let data = doc.data();
+                // console.log(data)
+                data = { ...data, id: doc.id };
+                arrayOfRecipies.push(data);
+            });
+            dispatch({
+                type: GET_RECIPIES_SUCCESS,
+                payload: arrayOfRecipies
+            })
         })
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
 }
 
-export const addRecipie = (recipie, image) => async(dispatch, getState) => {
+export const addRecipie = (recipie, image) => async (dispatch, getState) => {
     dispatch({
         type: LOADING
     })
-    const {user} = getState().user
- 
+    const { user } = getState().user
+
     //Add the image url to the recipie
-    let imageURL = "" 
-    if(image){
-        console.log("add recipie con imagen")
+    let imageURL = ""
+    if (image) {
         const fileName = user.uid + Math.random().toString();
         const imageRef = await storage.ref().child(user.email).child('Recipies images').child(fileName)
         await imageRef.put(image)
         imageURL = await imageRef.getDownloadURL();
         //Add the image url to the recipie
-        recipie = {...recipie, imageUrl: imageURL}
+        recipie = { ...recipie, imageUrl: imageURL }
     }
-    
+
     //Add user id and date to the recipie
-    recipie = {...recipie, user: user, date: new Date()}
+    recipie = { ...recipie, user: user, date: new Date() }
 
     //Add the recipie    
     db.collection("recipies").add(recipie)
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        dispatch({
-            type: ADD_RECIPIE_SUCCESS
+        .then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+            dispatch({
+                type: ADD_RECIPIE_SUCCESS
+            })
         })
+        .catch(function (error) {
+            console.error("Error adding document: ", error);
+            dispatch({
+                type: ERROR
+            })
+        });
+}
+
+export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
+    dispatch({
+        type: LOADING
     })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-        dispatch({
-            type: ERROR
-        })
-    });
+    const { user } = getState().user
+
+    db.collection("recipies").doc(idRecipie).get()
+        .then(function (doc) {
+            if (doc.exists) {
+                if (user.uid !== doc.data().user.uid) {
+                    console.log("No puede borrar")
+                    return;
+                }
+                console.log("Puede borrar")
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                return;
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+
+    db.collection("recipies").doc(idRecipie).delete()
+        .then(function () {
+            console.log("Document successfully deleted!");
+            dispatch({
+                type: DELETE_RECIPIE_SUCCESS
+            })
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+            dispatch({
+                type: ERROR
+            })
+        });
 }

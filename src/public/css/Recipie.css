@@ -16,7 +16,23 @@
     padding-right: 30px;
     border-top: 1px solid #e6e6e6;
     border-radius: 0;
+    position: relative;
 }
+
+.recipie.card .actions{
+    top: 20px;
+    position: absolute;
+    right: 25px;
+}
+.recipie.card .actions .btn-actions{
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+.recipie.card .actions .btn-actions:focus{
+    outline: none;
+}
+
 
 @media (max-width: 692px) {
     .recipie.card{
