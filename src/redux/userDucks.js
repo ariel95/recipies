@@ -18,7 +18,7 @@ export default function userReducer (state = dataInicial, action) {
         case LOADING:
             return {...state, loading: true}
         case USER_ERROR:
-            return {...dataInicial}
+            return {...dataInicial,loading: false}
         case USER_SUCCESS:
             return {...state, loading: false, user: action.payload, active: true}
         case SIGNOUT:
@@ -91,59 +91,40 @@ export const signOutAction = () => (dispatch) => {
     })
 }
 
-export const updateUserAction = (data) => async (dispatch, getState) => {
+export const updateUserAction = (data, newImage) => async (dispatch, getState) => {
+    console.log("updateUserAction")
     dispatch({
         type: LOADING
     })
-
     const {user} = getState().user
-    console.log(user)
+
+    let dataUser = {
+        ...user,
+        displayName: data.displayName
+    }
 
     try {
         
-        await db.collection('users').doc(user.email).update({
-            displayName: data.displayName
-        })
+        //Update profile picture
+        if(newImage){
+            const imageRef = await storage.ref().child(user.email).child('Profile picture')
+            await imageRef.put(newImage)
+            const imageURL = await imageRef.getDownloadURL()
 
-        const dataUser = {
-            ...user,
-            displayName: data.displayName
+            //Update data with image
+            await db.collection('users').doc(user.email).update({
+                displayName: data.displayName,
+                photoURL: imageURL
+            })
+            dataUser = {
+                ...dataUser, photoURL: imageURL
+            }
         }
-
-        dispatch({
-            type: USER_SUCCESS,
-            payload: dataUser
-        })
-        localStorage.setItem('user', JSON.stringify(dataUser))
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const editProfilePictureAction = (newImage) => async(dispatch, getState) => {
-
-    dispatch({
-        type: LOADING
-    })
-
-    // const {user} = getState().user
-
-    try {
-
-        const {user} = getState().user
-
-        const imageRef = await storage.ref().child(user.email).child('Profile picture')
-        await imageRef.put(newImage)
-        const imageURL = await imageRef.getDownloadURL()
-
-        await db.collection('users').doc(user.email).update({
-            photoURL: imageURL
-        })
-
-        const dataUser = {
-            ...user,
-            photoURL: imageURL
+        else{
+            //Update data without image
+            await db.collection('users').doc(user.email).update({
+                displayName: data.displayName,
+            })
         }
 
         dispatch({
@@ -152,9 +133,49 @@ export const editProfilePictureAction = (newImage) => async(dispatch, getState) 
         })
 
         localStorage.setItem('user', JSON.stringify(dataUser))
-        
+
     } catch (error) {
         console.log(error)
+        dispatch({
+            type: USER_ERROR
+        })
     }
 }
+
+// export const editProfilePictureAction = (newImage) => async(dispatch, getState) => {
+
+//     dispatch({
+//         type: LOADING
+//     })
+
+//     // const {user} = getState().user
+
+//     try {
+
+//         const {user} = getState().user
+
+//         const imageRef = await storage.ref().child(user.email).child('Profile picture')
+//         await imageRef.put(newImage)
+//         const imageURL = await imageRef.getDownloadURL()
+
+//         await db.collection('users').doc(user.email).update({
+//             photoURL: imageURL
+//         })
+
+//         const dataUser = {
+//             ...user,
+//             photoURL: imageURL
+//         }
+
+//         dispatch({
+//             type: USER_SUCCESS,
+//             payload: dataUser
+//         })
+
+//         localStorage.setItem('user', JSON.stringify(dataUser))
+        
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 

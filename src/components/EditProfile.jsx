@@ -10,7 +10,7 @@ import '../public/css/EditProfile.css'
 const EditProfile = (props) => {
 
     const dispatch = useDispatch();
-    const { user } = useSelector(store => store.user);
+    const { user, loading } = useSelector(store => store.user);
     const [dataUser, setDataUser] = React.useState(user);
 
 
@@ -22,16 +22,8 @@ const EditProfile = (props) => {
             console.log("Nombre vacii");
             return;
         }
-        dispatch(updateUserAction(dataUser));
-        if(dataUser.newPhoto){
-            console.log("Se actualizó foto")
-            dispatch(editProfilePictureAction(dataUser.newPhoto));
-        }
-        else{
-            console.log("No se seleccionó foto")
-        }
-        
-        props.history.push("profile");
+        dispatch(updateUserAction(dataUser, dataUser.newPhoto));
+        // props.history.push("profile");
     }
 
     const chooseFile = (e) => {
@@ -57,7 +49,16 @@ const EditProfile = (props) => {
                 <span className="navbar-brand" >
                     Edit profile
                 </span>
-                <FontAwesomeIcon icon={faCheck} onClick={onSubmitEditProfile} />
+                {
+                    !loading ? (
+                        <FontAwesomeIcon icon={faCheck} onClick={onSubmitEditProfile} />
+                    ) : (
+                        <div className="spinner-border" style={{width: "25px", height: "25px"}} role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    )
+                }
+                {/* <FontAwesomeIcon icon={faCheck} onClick={onSubmitEditProfile} /> */}
 
             </TopNavbar>
             <div id="edit-profile">

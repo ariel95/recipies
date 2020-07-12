@@ -3,6 +3,7 @@ import TopNavbar from './TopNavbar';
 import Recipie from './Recipie'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRecipies } from '../redux/recipiesDucks'
+import Loading from './Loading';
 
 const Home = () => {
 
@@ -24,7 +25,7 @@ const Home = () => {
                                 <Recipie data={recipie} key={recipie.id} />
                             ))): (<div>No data</div>)
                         ) : 
-                        <div>Cargando...</div>
+                        <Loading />
                 }
             </div>
         </>

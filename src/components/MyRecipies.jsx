@@ -2,6 +2,7 @@ import React from 'react'
 import Recipie from './Recipie'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMyRecipies } from '../redux/recipiesDucks'
+import Loading from '../components/Loading'
 
 const MyRecipies = () => {
 
@@ -22,7 +23,7 @@ const MyRecipies = () => {
                                 <Recipie data={recipie} key={recipie.uid} />
                             ))): (<div>No data</div>)
                         ) : 
-                        <div>Cargando...</div>
+                        <Loading />
                 }
             </div>
     )

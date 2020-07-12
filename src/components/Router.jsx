@@ -14,6 +14,7 @@ import DownNavbar from './DownNavbar';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
 import NewRecipie from './NewRecipie';
+import Loading from './Loading'
 
 function RouterApp() {
   const [firebaseUser, setFirebaseUser] = React.useState(false)
@@ -65,7 +66,7 @@ function RouterApp() {
         ) : (
           <div>
             <TopNavbar />
-            <div>Cargando...</div>
+            <Loading />
           </div>
           )
       }

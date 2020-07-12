@@ -4,3 +4,11 @@
     box-shadow: 1px 20px 20px 14px rgba(0,0,0,0.35);
     display: block;
 }
+
+#down-navbar a.link.selected{
+    color:black;
+}
+
+#down-navbar a.link{
+    color: #a2a2a2;
+}

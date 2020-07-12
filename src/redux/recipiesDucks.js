@@ -25,7 +25,7 @@ export default function userReducer(state = dataInicial, action) {
         case GET_RECIPIES_SUCCESS:
             return { ...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true }
         case ADD_RECIPIE_SUCCESS:
-            return { ...state, loading: false,  }
+            return { ...state, loading: false, }
         case DELETE_RECIPIE_SUCCESS:
             return { ...state, loading: false, hasToUpdate: true }
         default:
@@ -133,25 +133,32 @@ export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
                     return;
                 }
                 console.log("Puede borrar")
+                db.collection("recipies").doc(idRecipie).delete()
+                    .then(function () {
+                        console.log("Document successfully deleted!");
+                        dispatch({
+                            type: DELETE_RECIPIE_SUCCESS
+                        })
+                    }).catch(function (error) {
+                        console.error("Error removing document: ", error);
+                        dispatch({
+                            type: ERROR
+                        })
+                    });
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
+                dispatch({
+                    type: ERROR
+                })
                 return;
             }
         }).catch(function (error) {
             console.log("Error getting document:", error);
-        });
-
-    db.collection("recipies").doc(idRecipie).delete()
-        .then(function () {
-            console.log("Document successfully deleted!");
-            dispatch({
-                type: DELETE_RECIPIE_SUCCESS
-            })
-        }).catch(function (error) {
-            console.error("Error removing document: ", error);
             dispatch({
                 type: ERROR
             })
         });
+
+
 }

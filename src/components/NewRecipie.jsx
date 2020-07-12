@@ -25,7 +25,7 @@ const NewRecipie = (props) => {
             console.log("description vaciio")
             return
         }
-
+        console.log("recipie enviado")
         dispatch(addRecipie(recipie, image));
 
     }
