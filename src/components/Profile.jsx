@@ -7,6 +7,7 @@ import { faSignOutAlt, faEllipsisV, faPen } from '@fortawesome/free-solid-svg-ic
 import { withRouter } from 'react-router-dom'
 import MyRecipies from './MyRecipies'
 import '../public/css/Profile.css'
+import { nameText, emailText, signOutText, editProfileText } from '../helpers/texts'
 
 const Profile = (props) => {
 
@@ -21,7 +22,7 @@ const Profile = (props) => {
     return (
         <>
             <TopNavbar>
-                <span className="navbar-brand">
+                <span className="navbar-brand user-email">
                     {/* <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" /> */}
                     {user.user.email}
                 </span>
@@ -38,7 +39,7 @@ const Profile = (props) => {
                                 onClick={() => props.history.push("/EditProfile")}
                             >
                                 <FontAwesomeIcon icon={faPen} />
-                                <span style={{marginLeft:"15px"}}>Edit profile</span>
+                                <span style={{marginLeft:"15px"}}>{editProfileText()}</span>
                             </button>
                             <button
                                 className="dropdown-item"
@@ -46,7 +47,7 @@ const Profile = (props) => {
                                 onClick={onClickSignOut}
                             >
                                 <FontAwesomeIcon icon={faSignOutAlt} />
-                                <span style={{marginLeft:"15px"}}>Sign out</span>
+                                <span style={{marginLeft:"15px"}}>{signOutText()}</span>
                             </button>
                         </div>
                     </div>
@@ -62,11 +63,11 @@ const Profile = (props) => {
                                 <img className="card-img-top" width="100px" src={user.user.photoURL} alt=""></img>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">{nameText()}</label>
                                 <input id="name" type="text" value={user.user.displayName} readOnly disabled />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email">{emailText()}</label>
                                 <input id="email" type="text" value={user.user.email} readOnly disabled />
                             </div>
                         </form>

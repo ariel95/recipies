@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { deleteRecipie } from '../redux/recipiesDucks'
 import '../public/css/Recipie.css'
 import { useSelector } from 'react-redux'
+import { deleteText } from '../helpers/texts'
 
 const RecipieCardHeader = (props) => {
 
@@ -38,7 +39,7 @@ const RecipieCardHeader = (props) => {
                   className="dropdown-item"
                   type="button"
                   onClick={(e) => onClickDelete(e, dataRecipie.id)}
-                >Delete</button>
+                >{deleteText()}</button>
                 {/* <button className="dropdown-item" type="button">Action2</button> */}
               </div>
             </div>

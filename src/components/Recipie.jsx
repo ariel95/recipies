@@ -3,6 +3,7 @@ import '../public/css/Recipie.css'
 import RecipieCardHeader from '../components/RecipieCardHeader'
 import { isMobile } from '../helpers/window'
 
+
 var moment = require('moment'); // require
 
 const Recipie = (props) => {

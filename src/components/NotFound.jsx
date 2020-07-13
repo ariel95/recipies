@@ -1,24 +1,25 @@
 import React from 'react'
 import '../public/css/NotFound.css'
 import { withRouter } from 'react-router-dom'
+import {pageNotFoundText, homeText, goBackText} from '../helpers/texts'
 
 const NotFound = (props) => {
     return (
         <div id="not-found" className="portada">
             <div className="text">
-                <h1>Ups! Page not found!</h1>
+                <h1>{pageNotFoundText()}</h1>
                 <div className="center">
                     <button
                         className="btn btn-light float-right mr-3 mt-3"
                         onClick={() => window.history.back()}
                     >
-                        Go back
+                        {goBackText()}
                 </button>
                     <button
                         className="btn btn-light float-right mr-3 mt-3"
                         onClick={() => window.location.href = "/"}
                     >
-                        Home
+                        {homeText()}
                 </button>
                 </div>
 

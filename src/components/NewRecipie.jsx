@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import TopNavbar from '../components/TopNavbar'
+import { newRecipieText, nameText, descriptionText } from '../helpers/texts'
 
 const NewRecipie = (props) => {
 
@@ -51,7 +52,7 @@ const NewRecipie = (props) => {
             <TopNavbar>
                 <FontAwesomeIcon icon={faChevronLeft} onClick={() => props.history.goBack()} />
                 <span className="navbar-brand" >
-                    Add recipie
+                    {newRecipieText()}
                 </span>
  
                 {
@@ -79,7 +80,7 @@ const NewRecipie = (props) => {
                 </div>
                 <form onSubmit={addRecipieSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">{nameText()}</label>
                         <input
                             type="text"
                             className="form-control"
@@ -90,7 +91,7 @@ const NewRecipie = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">{descriptionText()}</label>
                         <input
                             type="text"
                             className="form-control"

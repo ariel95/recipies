@@ -5,7 +5,9 @@ import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUserAction } from '../redux/userDucks'
+import { editProfileText, nameText, emailText, changeProfilePictureText } from '../helpers/texts'
 import '../public/css/EditProfile.css'
+
 
 const EditProfile = (props) => {
 
@@ -47,7 +49,7 @@ const EditProfile = (props) => {
             <TopNavbar>
                 <FontAwesomeIcon icon={faChevronLeft} onClick={() => props.history.goBack()} />
                 <span className="navbar-brand" >
-                    Edit profile
+                    {editProfileText()}
                 </span>
                 {
                     !loading ? (
@@ -78,14 +80,14 @@ const EditProfile = (props) => {
                                     onChange = {chooseFile}
                                     style={{display:"none"}}
                                 />
-                                <label className="choose-pic btn btn-dark mt-2" htmlFor="pic">Change profile picture</label>
+                                <label className="choose-pic btn btn-dark mt-2" htmlFor="pic">{changeProfilePictureText()}</label>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">{nameText()}</label>
                                 <input id="name" type="text" value={dataUser.displayName} onChange={(e) => setDataUser({ ...dataUser, displayName: e.target.value })} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email">{emailText()}</label>
                                 <input id="email" type="text" value={user.email} readOnly disabled/>
                             </div>
                             <button type="submit"hidden></button>

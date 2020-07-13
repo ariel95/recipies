@@ -1,0 +1,217 @@
+const language = localStorage.getItem('language');
+
+
+//NOT FOUND PAGE
+export const pageNotFoundText = () =>{
+    switch (language){
+        case "spanish":
+            return "Ups! Página no encontrada!";
+        case "english":
+            return "Ups! Page not found!";      
+        case "dutch":
+            return "Ups! Page not found (en dutch)!";          
+        default:
+            return "Ups! Page not found!";      
+    }
+}
+
+export const homeText = () =>{
+    switch (language){
+        case "spanish":
+            return "Inicio";
+        case "english":
+            return "Home";      
+        case "dutch":
+            return "Home in dutch";          
+        default:
+            return "Home";      
+    }
+}
+
+export const goBackText = () =>{
+    switch (language){
+        case "spanish":
+            return "Volver";
+        case "english":
+            return "Go back";      
+        case "dutch":
+            return "Go back in dutch";          
+        default:
+            return "Go back";      
+    }
+}
+
+//LANGUAGES SECTION
+export const spanishText = () =>{
+    switch (language){
+        case "spanish":
+            return "Español";
+        case "english":
+            return "Spanish";      
+        case "dutch":
+            return "Español in dutch";          
+        default:
+            return "Spanish";      
+    }
+}
+
+export const englishText = () =>{
+    switch (language){
+        case "spanish":
+            return "Inglés";
+        case "english":
+            return "English";      
+        case "dutch":
+            return "English in dutch";          
+        default:
+            return "English";      
+    }
+}
+
+export const dutchText = () =>{
+    switch (language){
+        case "spanish":
+            return "Holandés";
+        case "english":
+            return "Dutch";      
+        case "dutch":
+            return "Dutch in dutch";          
+        default:
+            return "Dutch";      
+    }
+}
+
+//ADD RECIPIES
+export const newRecipieText = () =>{
+    switch (language){
+        case "spanish":
+            return "Nueva receta";
+        case "english":
+            return "New recipie";      
+        case "dutch":
+            return "New recipie in dutch";          
+        default:
+            return "New recipie";      
+    }
+}
+
+export const nameText = () =>{
+    switch (language){
+        case "spanish":
+            return "Nombre";
+        case "english":
+            return "Name";      
+        case "dutch":
+            return "Name in dutch";          
+        default:
+            return "Name";      
+    }
+}
+
+export const descriptionText = () =>{
+    switch (language){
+        case "spanish":
+            return "Descripción";
+        case "english":
+            return "Description";      
+        case "dutch":
+            return "Description in dutch";          
+        default:
+            return "Description";      
+    }
+}
+
+//PROFILE
+export const emailText = () =>{
+    switch (language){
+        case "spanish":
+            return "Email";
+        case "english":
+            return "Email";      
+        case "dutch":
+            return "Email in dutch";          
+        default:
+            return "Email";      
+    }
+}
+
+
+export const signOutText = () =>{
+    switch (language){
+        case "spanish":
+            return "Cerrar sesión";
+        case "english":
+            return "Sign out";      
+        case "dutch":
+            return "Sign out in dutch";          
+        default:
+            return "Sign out";      
+    }
+}
+
+export const editProfileText = () =>{
+    switch (language){
+        case "spanish":
+            return "Editar perfil";
+        case "english":
+            return "Edit profile";      
+        case "dutch":
+            return "Edit profile in dutch";          
+        default:
+            return "Edit profile";      
+    }
+} 
+
+export const deleteText = () =>{
+    switch (language){
+        case "spanish":
+            return "Eliminar";
+        case "english":
+            return "Delete";      
+        case "dutch":
+            return "Delete in dutch";          
+        default:
+            return "Delete";      
+    }
+} 
+
+//SIGN IN
+export const signInText = () =>{
+    switch (language){
+        case "spanish":
+            return "Iniciar sesión";
+        case "english":
+            return "Sign in";      
+        case "dutch":
+            return "Sign in in dutch";          
+        default:
+            return "Sign in";      
+    }
+} 
+
+export const signInWithGoogleText = () =>{
+    switch (language){
+        case "spanish":
+            return "Iniciar sesión con goolle";
+        case "english":
+            return "Sign in with google";      
+        case "dutch":
+            return "Sign in with google in dutch";          
+        default:
+            return "Sign in with google";      
+    }
+} 
+
+//EDIT PROFILE
+export const changeProfilePictureText = () =>{
+    switch (language){
+        case "spanish":
+            return "Cambiar foto de perfil";
+        case "english":
+            return "Change profile picture";      
+        case "dutch":
+            return "Change profile picture in dutch";          
+        default:
+            return "Change profile picture";      
+    }
+} 
