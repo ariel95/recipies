@@ -1,16 +1,19 @@
 import React from 'react'
 import '../public/css/TopNavbar.css'
-
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import Languages from '../components/Languages'
 
 const TopNavbar = (props) => {
 
     const defaultContent = () => {
         return (
-            <a className="navbar-brand" href="/">
-                <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
+            <>
+                <a className="navbar-brand" href="/">
+                    {/* <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" /> */}
                     Recipies
             </a>
+                <Languages />
+            </>
         )
     }
 
@@ -18,10 +21,10 @@ const TopNavbar = (props) => {
         <nav id="top-navbar" className="navbar navbar-light bg-light top-navbar px-4">
             {props.children ? (
                 props.children
-                
+
             ) : (
-                defaultContent()                
-            )
+                    defaultContent()
+                )
             }
         </nav >
     )
