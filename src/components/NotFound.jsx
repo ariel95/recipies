@@ -16,7 +16,7 @@ const NotFound = (props) => {
                 </button>
                     <button
                         className="btn btn-light float-right mr-3 mt-3"
-                        onClick={() => props.history.push("/")}
+                        onClick={() => window.location.href = "/"}
                     >
                         Home
                 </button>

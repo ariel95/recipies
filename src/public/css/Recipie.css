@@ -24,14 +24,14 @@
     position: absolute;
     right: 25px;
 }
-.recipie.card .actions .btn-actions{
+/* .recipie.card .actions .btn-actions{
     background: none;
     border: none;
     font-size: 20px;
-}
-.recipie.card .actions .btn-actions:focus{
+} */
+/* .recipie.card .actions .btn-actions:focus{
     outline: none;
-}
+} */
 
 
 @media (max-width: 692px) {

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUserAction, editProfilePictureAction } from '../redux/userDucks'
+import { updateUserAction } from '../redux/userDucks'
 import '../public/css/EditProfile.css'
 
 const EditProfile = (props) => {
@@ -85,7 +85,7 @@ const EditProfile = (props) => {
                                 <input id="name" type="text" value={dataUser.displayName} onChange={(e) => setDataUser({ ...dataUser, displayName: e.target.value })} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inpemailutAddress2">Email</label>
+                                <label htmlFor="email">Email</label>
                                 <input id="email" type="text" value={user.email} readOnly disabled/>
                             </div>
                             <button type="submit"hidden></button>

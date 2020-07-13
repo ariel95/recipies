@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addRecipie, initialDataRecipie } from '../redux/recipiesDucks'
+import { addRecipie } from '../redux/recipiesDucks'
 import initialRecipiesData from '../models/Recipies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'

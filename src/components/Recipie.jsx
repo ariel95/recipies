@@ -8,6 +8,7 @@ var moment = require('moment'); // require
 const Recipie = (props) => {
 
   const dataRecipie = props.data;
+  
 
   const getDate = () => {
     const recipieDate = dataRecipie.date.toDate();
@@ -18,7 +19,7 @@ const Recipie = (props) => {
     <div className="recipie card">
       <div className="row no-gutters">
         {
-          dataRecipie.user && isMobile() && (
+          dataRecipie.user && isMobile() &&(
             <RecipieCardHeader data={dataRecipie} />
           )
         }
@@ -28,7 +29,7 @@ const Recipie = (props) => {
         </div>
         <div className="col-md-8">
           {
-            dataRecipie.user && !isMobile() && (
+            dataRecipie.user && !isMobile()  && (
               <RecipieCardHeader data={dataRecipie} />
             )
           }

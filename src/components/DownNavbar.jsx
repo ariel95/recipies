@@ -2,6 +2,7 @@ import React from 'react'
 import '../public/css/DownNavbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faSearch, faHeart, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
 
 const DownNavbar = () => {
 
@@ -11,9 +12,10 @@ const DownNavbar = () => {
   const [myRecipiesSelected, setMyRecipiesSelected] = React.useState(false);
   const [profileSelected, setProfileSelected] = React.useState(false);
 
+  const {user} = useSelector(store => store.user)
+
   React.useEffect(() => {
     const url = window.location.pathname;
-    console.log("url: " ,url)
       switch(url){
         case "/":
           setHomeSelected(true);
@@ -60,7 +62,17 @@ const DownNavbar = () => {
         </div>
         <div className="flex-item">
           <a className={profileSelected?"link navbar-brand flex-item selected":"link navbar-brand flex-item"} href="/profile">
-            <FontAwesomeIcon icon={faUser} />
+            {
+              user ? (
+                
+                <img src={user.photoURL} style={{width: "25px", height: "25px", borderRadius: "50%", border: "2px solid"}} alt=""/>
+              ) : (
+                <FontAwesomeIcon icon={faUser} />
+              )
+            }
+            
+            
+            
           </a>
         </div>
       </div>

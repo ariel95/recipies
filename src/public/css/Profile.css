@@ -1,0 +1,27 @@
+#profile .card{
+    max-width: 400px;
+    margin: auto;
+    /* margin-top: 25px; */
+    border-radius: 0;
+}
+
+#profile .main-profile-picture{
+    text-align: center  ;
+}
+
+#profile .main-profile-picture img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+#profile form input {
+    width: 100%;
+    border:none;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+#profile form .form-group label {
+    color: #b0b0b0;
+    font-size: 14px;
+}

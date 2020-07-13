@@ -101,7 +101,7 @@ export const addRecipie = (recipie, image) => async (dispatch, getState) => {
     }
 
     //Add user id and date to the recipie
-    recipie = { ...recipie, user: user, date: new Date() }
+    recipie = { ...recipie, uid: user.uid , user: user, date: new Date() }
 
     //Add the recipie    
     db.collection("recipies").add(recipie)
