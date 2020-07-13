@@ -32,10 +32,10 @@ const Languages = () => {
                     language === "spanish" && (<img src={spanish} alt="" />)
                 }
                 {
-                    language === "english" && (<img src={english} alt="" />)
+                    language === "dutch" && (<img src={dutch} alt="" />)
                 }
                 {
-                    language === "dutch" && (<img src={dutch} alt="" />)
+                    (language === "english" || language === null) && (<img src={english} alt="" />)
                 }
             </button>
 
