@@ -5,6 +5,7 @@ import { signInAction } from '../redux/userDucks'
 
 import { withRouter } from 'react-router-dom'
 import '../public/css/SignIn.css'
+import { signInText, signInWithGoogleText } from '../helpers/texts'
 
 const SignIn = (props) => {
 
@@ -28,7 +29,7 @@ const SignIn = (props) => {
         <div id="sign-in" className="portada">
             <div className="content">
                 <div className="text">
-                    <h3>Sign In</h3>
+                    <h3>{signInText()}</h3>
                     <button
                         onClick={() => onClickGoogleAuth () }
                         className="btn btn-light mt-2"
@@ -36,7 +37,7 @@ const SignIn = (props) => {
                     >
                     {
                         !loading ?
-                           "Sign in with google"
+                           signInWithGoogleText()
                            : (
                             <div className="spinner-border" style={{width: "25px", height: "25px"}} role="status">
                                 <span className="sr-only">Loading...</span>

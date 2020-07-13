@@ -11,7 +11,7 @@ const MyRecipies = () => {
     
     React.useEffect(() => {
         dispatch(getMyRecipies());
-    },[dispatch])
+    },[dispatch, recipies.hasToUpdate])
 
 
     return (
@@ -20,7 +20,7 @@ const MyRecipies = () => {
                     recipies.hasLookedForData ? 
                         ( recipies.results.length > 0 ? 
                             (recipies.results.map(recipie => (
-                                <Recipie data={recipie} key={recipie.uid} />
+                                <Recipie data={recipie} key={recipie.id} />
                             ))): (<div>No data</div>)
                         ) : 
                         <Loading />

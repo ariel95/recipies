@@ -17,6 +17,7 @@ const Recipie = (props) => {
   }
 
   const deletingRecipie = (e) => {
+    console.log("deletingRecipie")
     e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("deleting")
   }
 
@@ -24,7 +25,7 @@ const Recipie = (props) => {
     <div className="recipie card">
       <div className="row no-gutters">
         {
-          dataRecipie.user && isMobile() &&(
+          dataRecipie.user && isMobile() && (
             <RecipieCardHeader data={dataRecipie} deleteFunction={deletingRecipie}/>
           )
         }
@@ -34,12 +35,11 @@ const Recipie = (props) => {
         </div>
         <div className="col-md-8">
           {
-            dataRecipie.user && !isMobile()  && (
-              <RecipieCardHeader data={dataRecipie} />
-            )
+           dataRecipie.user && !isMobile() && (
+            <RecipieCardHeader data={dataRecipie} deleteFunction={deletingRecipie}/>
+          )
           }
           <div className="card-body">
-
             <h5 className="card-title">{dataRecipie.name}</h5>
             <p className="card-text">{dataRecipie.description}</p>
             <p className="card-text"><small className="text-muted">{getDate()}</small></p>

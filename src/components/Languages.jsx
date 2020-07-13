@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import spanish from '../public/icons/spanish.ico'
 import english from '../public/icons/english.ico'
 import dutch from '../public/icons/dutch.ico'

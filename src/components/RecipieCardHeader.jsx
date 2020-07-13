@@ -13,6 +13,7 @@ const RecipieCardHeader = (props) => {
   const dispatch = useDispatch();
   const {user} = useSelector(store => store.user)
   const deleteFunction = props.deleteFunction;
+  
   const onClickDelete = (e, id) => {
     deleteFunction(e);
     dispatch(deleteRecipie(id));
@@ -39,7 +40,9 @@ const RecipieCardHeader = (props) => {
                   className="dropdown-item"
                   type="button"
                   onClick={(e) => onClickDelete(e, dataRecipie.id)}
-                >{deleteText()}</button>
+                >
+                  {deleteText()}
+                </button>
                 {/* <button className="dropdown-item" type="button">Action2</button> */}
               </div>
             </div>
