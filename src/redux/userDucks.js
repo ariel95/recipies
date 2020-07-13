@@ -84,6 +84,11 @@ export const readUserActiveAction = () => (dispatch) => {
             payload: JSON.parse(localStorage.getItem('user'))
         })
     }
+    else{
+        dispatch({
+            type: USER_ERROR,
+        })
+    }
 }
 
 export const signOutAction = () => (dispatch) => {

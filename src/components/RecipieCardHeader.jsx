@@ -26,7 +26,7 @@ const RecipieCardHeader = (props) => {
         {dataRecipie.user.displayName}
       </div>
       {
-        dataRecipie.uid === user.uid && (
+        user && dataRecipie.uid === user.uid && (
           <div className="actions">
             <div className="btn-group dropleft">
               <button className="btn-actions" data-toggle="dropdown">

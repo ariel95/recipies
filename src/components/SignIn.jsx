@@ -30,8 +30,9 @@ const SignIn = (props) => {
                 <div className="text">
                     <h3>Sign In</h3>
                     <button
-                        onClick={onClickGoogleAuth}
+                        onClick={() => onClickGoogleAuth () }
                         className="btn btn-light mt-2"
+                        style={{width:"200px"}}
                     >
                     {
                         !loading ?
