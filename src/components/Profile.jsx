@@ -23,7 +23,7 @@ const Profile = (props) => {
             <TopNavbar>
                 <span className="navbar-brand">
                     {/* <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" /> */}
-                    {user.user.displayName}
+                    {user.user.email}
                 </span>
                 <div className="actions">
                     <div className="btn-group dropleft">

@@ -7,7 +7,7 @@ const dataInicial = {
 }
 
 // types
-const LOADING = 'LOADING'
+const USER_LOADING = 'USER_LOADING'
 const USER_ERROR = 'USER_ERROR'
 const USER_SUCCESS = 'USER_SUCCESS'
 const SIGNOUT = 'SIGNOUT'
@@ -15,7 +15,7 @@ const SIGNOUT = 'SIGNOUT'
 // reducer
 export default function userReducer (state = dataInicial, action) {
     switch(action.type){
-        case LOADING:
+        case USER_LOADING:
             return {...state, loading: true}
         case USER_ERROR:
             return {...dataInicial,loading: false}
@@ -31,7 +31,7 @@ export default function userReducer (state = dataInicial, action) {
 // action
 export const signInAction = () => async(dispatch) => {
     dispatch({
-        type: LOADING
+        type: USER_LOADING
     })
     try {
 
@@ -75,6 +75,9 @@ export const signInAction = () => async(dispatch) => {
 }
 
 export const readUserActiveAction = () => (dispatch) => {
+    dispatch({
+        type: USER_LOADING
+    })
     if(localStorage.getItem('user')){
         dispatch({
             type: USER_SUCCESS,
@@ -94,7 +97,7 @@ export const signOutAction = () => (dispatch) => {
 export const updateUserAction = (data, newImage) => async (dispatch, getState) => {
     console.log("updateUserAction")
     dispatch({
-        type: LOADING
+        type: USER_LOADING
     })
     const {user} = getState().user
 
@@ -145,7 +148,7 @@ export const updateUserAction = (data, newImage) => async (dispatch, getState) =
 // export const editProfilePictureAction = (newImage) => async(dispatch, getState) => {
 
 //     dispatch({
-//         type: LOADING
+//         type: USER_LOADING
 //     })
 
 //     // const {user} = getState().user

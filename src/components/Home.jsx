@@ -12,7 +12,7 @@ const Home = () => {
     
     React.useEffect(() => {
         dispatch(getRecipies());
-    },[recipies.hasLookedForData, recipies.hasToUpdate ,dispatch])
+    },[recipies.hasToUpdate ,dispatch])
 
     return (
         <>

@@ -3,7 +3,7 @@ import { db, storage } from '../firebase'
 
 // constant
 const dataInicial = {
-    hasToUpdate: false,
+    hasToUpdate: 0,
     loading: false,
     count: 0,
     hasLookedForData: false,
@@ -11,8 +11,8 @@ const dataInicial = {
 }
 
 // types
-const LOADING = 'LOADING'
-const ERROR = 'ERROR'
+const RECIPIE_LOADING = 'RECIPIE_LOADING'
+const RECIPIE_ERROR = 'RECIPIE_ERROR'
 const GET_RECIPIES_SUCCESS = 'GET_RECIPIES_SUCCESS'
 const ADD_RECIPIE_SUCCESS = 'ADD_RECIPIE_SUCCESS'
 const DELETE_RECIPIE_SUCCESS = 'DELETE_RECIPIE_SUCCESS'
@@ -20,14 +20,16 @@ const DELETE_RECIPIE_SUCCESS = 'DELETE_RECIPIE_SUCCESS'
 // reducer
 export default function userReducer(state = dataInicial, action) {
     switch (action.type) {
-        case LOADING:
+        case RECIPIE_LOADING:
             return { ...state, loading: true }
         case GET_RECIPIES_SUCCESS:
             return { ...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true }
         case ADD_RECIPIE_SUCCESS:
             return { ...state, loading: false, }
         case DELETE_RECIPIE_SUCCESS:
-            return { ...state, loading: false, hasToUpdate: true }
+            return { ...state, loading: false, hasToUpdate: state.hasToUpdate+1 }
+        case RECIPIE_ERROR:
+            return { ...state, loading: false}
         default:
             return { ...state }
     }
@@ -36,7 +38,7 @@ export default function userReducer(state = dataInicial, action) {
 // action
 export const getMyRecipies = () => async (dispatch, getState) => {
     dispatch({
-        type: LOADING
+        type: RECIPIE_LOADING
     })
 
     const { user } = getState().user
@@ -60,7 +62,7 @@ export const getMyRecipies = () => async (dispatch, getState) => {
 
 export const getRecipies = () => async (dispatch, getState) => {
     dispatch({
-        type: LOADING
+        type: RECIPIE_LOADING
     })
     // .startAt(1000000)
     // .limit(3)
@@ -85,7 +87,7 @@ export const getRecipies = () => async (dispatch, getState) => {
 
 export const addRecipie = (recipie, image) => async (dispatch, getState) => {
     dispatch({
-        type: LOADING
+        type: RECIPIE_LOADING
     })
     const { user } = getState().user
 
@@ -114,14 +116,14 @@ export const addRecipie = (recipie, image) => async (dispatch, getState) => {
         .catch(function (error) {
             console.error("Error adding document: ", error);
             dispatch({
-                type: ERROR
+                type: RECIPIE_ERROR
             })
         });
 }
 
 export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
     dispatch({
-        type: LOADING
+        type: RECIPIE_LOADING
     })
     const { user } = getState().user
 
@@ -142,21 +144,21 @@ export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
                     }).catch(function (error) {
                         console.error("Error removing document: ", error);
                         dispatch({
-                            type: ERROR
+                            type: RECIPIE_ERROR
                         })
                     });
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
                 dispatch({
-                    type: ERROR
+                    type: RECIPIE_ERROR
                 })
                 return;
             }
         }).catch(function (error) {
             console.log("Error getting document:", error);
             dispatch({
-                type: ERROR
+                type: RECIPIE_ERROR
             })
         });
 

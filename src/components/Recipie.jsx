@@ -15,12 +15,16 @@ const Recipie = (props) => {
     return moment(recipieDate).startOf('seconds').fromNow();
   }
 
+  const deletingRecipie = (e) => {
+    e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("deleting")
+  }
+
   return (
     <div className="recipie card">
       <div className="row no-gutters">
         {
           dataRecipie.user && isMobile() &&(
-            <RecipieCardHeader data={dataRecipie} />
+            <RecipieCardHeader data={dataRecipie} deleteFunction={deletingRecipie}/>
           )
         }
 

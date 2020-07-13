@@ -11,7 +11,7 @@ const MyRecipies = () => {
     
     React.useEffect(() => {
         dispatch(getMyRecipies());
-    },[recipies.hasLookedForData, dispatch])
+    },[dispatch])
 
 
     return (

@@ -71,8 +71,6 @@ const DownNavbar = () => {
               )
             }
             
-            
-            
           </a>
         </div>
       </div>
