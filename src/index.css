@@ -38,3 +38,8 @@ input:focus{
 .dropdown-item{
   color:var(--text-color);
 }
+
+label.info {
+  color: #b0b0b0;
+  font-size: 14px;
+}

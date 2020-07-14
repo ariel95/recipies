@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import TopNavbar from '../components/TopNavbar'
-import { newRecipieText, nameText, descriptionText } from '../helpers/texts'
+import { newRecipieText, nameText, descriptionText, countryOfOriginText, cookingTimeInMinutesText, ingredientsText } from '../helpers/texts'
 import ImageUpload from './ImageUpload'
 
 const NewRecipie = (props) => {
@@ -32,7 +32,7 @@ const NewRecipie = (props) => {
 
     }
 
-    
+
 
     return (
         <>
@@ -41,24 +41,23 @@ const NewRecipie = (props) => {
                 <span className="navbar-brand" >
                     {newRecipieText()}
                 </span>
- 
+
                 {
                     !loading ? (
                         <FontAwesomeIcon icon={faCheck} onClick={addRecipieSubmit} />
                     ) : (
-                        <div className="spinner-border" style={{width: "25px", height: "25px"}} role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    )
+                            <div className="spinner-border" style={{ width: "25px", height: "25px" }} role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        )
                 }
- 
+
             </TopNavbar>
             <div id="new-recipie">
-                <ImageUpload setImage={setImage}/>
-                
-                <form onSubmit={addRecipieSubmit}>
-                    <div className="for m-group">
-                        <label htmlFor="name">{nameText()}</label>
+                <ImageUpload setImage={setImage} />
+                <form onSubmit={addRecipieSubmit} className="col-12 row" style={{ margin: "auto", marginTop: "25px" }}>
+                    <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="name" className="info">{nameText()}</label>
                         <input
                             type="text"
                             className="form-control"
@@ -68,8 +67,8 @@ const NewRecipie = (props) => {
                             onChange={e => setRecipie({ ...recipie, name: e.target.value })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="description">{descriptionText()}</label>
+                    <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="description" className="info">{descriptionText()}</label>
                         <input
                             type="text"
                             className="form-control"
@@ -78,17 +77,36 @@ const NewRecipie = (props) => {
                             onChange={e => setRecipie({ ...recipie, description: e.target.value })}
                         />
                     </div>
-                    {/* {
-                    !loading ? (
-                        <button type="submit" className="btn btn-dark">Add!</button>
-                    ) : (
-                            <button type="submit" className="btn btn-dark">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </button>
-                        )
-                } */}
+                    <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="country" className="info">{countryOfOriginText()}</label>
+                        {/* <input
+                            type="text"
+                            className="form-control"
+                            id="country"
+                            value={recipie.country}
+                            onChange={e => setRecipie({ ...recipie, country: e.target.value })}
+                        /> */}
+                        <select 
+                            class="custom-select" 
+                            id="inputGroupSelect01"
+                            onChange={e => setRecipie({ ...recipie, country: e.target.value })}
+                        >
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="cookingTime" className="info">{cookingTimeInMinutesText()}</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="cookingTime"
+                            value={recipie.cookingTimeInMinutes === 0 ? "" : recipie.cookingTimeInMinutes}
+                            onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
+                        />
+                    </div>
                     <button type="submit" hidden></button>
                 </form>
             </div>

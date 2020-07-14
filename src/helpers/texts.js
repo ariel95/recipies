@@ -215,3 +215,43 @@ export const changeProfilePictureText = () =>{
             return "Change profile picture";      
     }
 } 
+
+export const countryOfOriginText = () =>{
+    switch (language){
+        case "spanish":
+            return "País de origen";
+        case "english":
+            return "Country or origin";      
+        case "dutch":
+            return "Country or origin in dutch";          
+        default:
+            return "Country or origin";      
+    }
+} 
+
+export const cookingTimeInMinutesText = () =>{
+    switch (language){
+        case "spanish":
+            return "Tiempo de preparación (minutos)";
+        case "english":
+            return "Cooking time (in minutes)";      
+        case "dutch":
+            return "Cooking time (in minutes) in dutch";          
+        default:
+            return "Cooking time (in minutes)";      
+    }
+} 
+
+export const ingredientsText = () =>{
+    switch (language){
+        case "spanish":
+            return "Ingredientes";
+        case "english":
+            return "Ingredients";      
+        case "dutch":
+            return "Ingredients in dutch";          
+        default:
+            return "Ingredients";      
+    }
+} 
+
