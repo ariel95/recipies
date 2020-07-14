@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom'
 import TopNavbar from '../components/TopNavbar'
 import { newRecipieText, nameText, descriptionText, countryOfOriginText, cookingTimeInMinutesText, ingredientsText } from '../helpers/texts'
 import ImageUpload from './ImageUpload'
+import CountriesCombobox from './CountriesCombobox'
 
 const NewRecipie = (props) => {
 
@@ -79,23 +80,7 @@ const NewRecipie = (props) => {
                     </div>
                     <div className="form-group col-xs-12 col-md-6 col-lg-4">
                         <label htmlFor="country" className="info">{countryOfOriginText()}</label>
-                        {/* <input
-                            type="text"
-                            className="form-control"
-                            id="country"
-                            value={recipie.country}
-                            onChange={e => setRecipie({ ...recipie, country: e.target.value })}
-                        /> */}
-                        <select 
-                            class="custom-select" 
-                            id="inputGroupSelect01"
-                            onChange={e => setRecipie({ ...recipie, country: e.target.value })}
-                        >
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <CountriesCombobox state={recipie} setState={setRecipie} />
                     </div>
                     <div className="form-group col-xs-12 col-md-6 col-lg-4">
                         <label htmlFor="cookingTime" className="info">{cookingTimeInMinutesText()}</label>
