@@ -1,0 +1,14 @@
+#image-upload #dropTarget {
+    height: 200px;
+    border: 1px solid #c1c1c1;
+    border-style: dashed;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 30px;
+}
+
+#image-upload #dropTarget img {
+    height: 200px;
+    margin: auto;
+    display: block;
+}

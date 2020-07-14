@@ -192,7 +192,7 @@ export const signInText = () =>{
 export const signInWithGoogleText = () =>{
     switch (language){
         case "spanish":
-            return "Iniciar sesión con goolle";
+            return "Iniciar sesión con google";
         case "english":
             return "Sign in with google";      
         case "dutch":

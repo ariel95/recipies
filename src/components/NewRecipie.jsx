@@ -7,6 +7,7 @@ import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import TopNavbar from '../components/TopNavbar'
 import { newRecipieText, nameText, descriptionText } from '../helpers/texts'
+import ImageUpload from './ImageUpload'
 
 const NewRecipie = (props) => {
 
@@ -31,21 +32,7 @@ const NewRecipie = (props) => {
 
     }
 
-    const chooseFile = (e) => {
-        const img = e.target.files[0];
-
-        if (img === undefined) {
-            console.log("No se selecciono imagen")
-            return;
-        }
-
-        if (!(img.type === "image/png" || img.type === "image/jpg" || img.type === "image/jpeg")) {
-            console.log(img.type);
-            console.log("Not supported files");
-        }
-
-        setImage(img);
-    }
+    
 
     return (
         <>
@@ -67,19 +54,10 @@ const NewRecipie = (props) => {
  
             </TopNavbar>
             <div id="new-recipie">
-                <div className="custom-file" style={{ textAlign: "center" }}>
-                    <input
-                        type="file"
-                        className="custom-file-input"
-                        id="pic"
-                        aria-describedby="inputGroupFileAddon04"
-                        onChange={chooseFile}
-                        style={{ display: "none" }}
-                    />
-                    <label className="choose-pic btn btn-dark mt-2" htmlFor="pic">Picture</label>
-                </div>
+                <ImageUpload setImage={setImage}/>
+                
                 <form onSubmit={addRecipieSubmit}>
-                    <div className="form-group">
+                    <div className="for m-group">
                         <label htmlFor="name">{nameText()}</label>
                         <input
                             type="text"
