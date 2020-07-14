@@ -305,4 +305,16 @@ export const chooseACountryText = () =>{
     }
 } 
 
+export const numberOfServingsText = () =>{
+    switch (language){
+        case "spanish":
+            return "Numero de porciones";
+        case "english":
+            return "Number of servings";      
+        case "dutch":
+            return "Number of servings in dutch";          
+        default:
+            return "Number of servings";      
+    }
+} 
 

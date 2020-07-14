@@ -6,7 +6,7 @@ const initialRecipiesData = {
     country: "",
     cookingTimeInMinutes: 0,
     ingredients: [],
-    porciones: 0
+    numberOfServings: 0
 }
 
 export default initialRecipiesData;

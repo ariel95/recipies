@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import TopNavbar from '../components/TopNavbar'
-import { newRecipieText, nameText, descriptionText, countryOfOriginText, cookingTimeInMinutesText, ingredientsText } from '../helpers/texts'
+import {numberOfServingsText, newRecipieText, nameText, descriptionText, countryOfOriginText, cookingTimeInMinutesText, ingredientsText } from '../helpers/texts'
 import ImageUpload from './ImageUpload'
 import CountriesCombobox from './CountriesCombobox'
 
@@ -67,7 +67,7 @@ const NewRecipie = (props) => {
                             value={recipie.name}
                             onChange={e => setRecipie({ ...recipie, name: e.target.value })}
                         />
-                        <div class="invalid-feedback">
+                        <div className="invalid-feedback">
                             This field is necesary
                         </div>
                     </div>
@@ -93,6 +93,16 @@ const NewRecipie = (props) => {
                             id="cookingTime"
                             value={recipie.cookingTimeInMinutes === 0 ? "" : recipie.cookingTimeInMinutes}
                             onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="numberOfServings" className="info">{numberOfServingsText()}</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="numberOfServings"
+                            value={recipie.numberOfServings === 0 ? "" : recipie.numberOfServings}
+                            onChange={e => setRecipie({ ...recipie, numberOfServings: e.target.value })}
                         />
                     </div>
                     {/* {
