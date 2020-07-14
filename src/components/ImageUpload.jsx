@@ -1,5 +1,6 @@
 import React, { createContext } from 'react'
 import '../public/css/ImageUpload.css'
+import { clickHereText, dropAFileOr, chooseAPictureText, changePictureText } from '../helpers/texts'
 
 const dragDrop = require('drag-drop')
 
@@ -87,8 +88,8 @@ const ImageUpload = (props) => {
                     :
                     (
                         <span> 
-                            Drop a file or
-                            <label className="choose-pic mt-2" htmlFor="pic">&nbsp;Click here</label>
+                            {dropAFileOr()}
+                    <label className="choose-pic mt-2" htmlFor="pic">&nbsp;{clickHereText()}</label>
                         </span>
                     )
                 }
@@ -105,9 +106,9 @@ const ImageUpload = (props) => {
                 />
                 {
                     !imageSelected ? 
-                        <label className="choose-pic mt-2" htmlFor="pic">Choose a picture</label>
+                        <label className="choose-pic mt-2" htmlFor="pic">{chooseAPictureText()}</label>
                     :
-                        <label className="choose-pic mt-2" htmlFor="pic">Change picture</label>
+                        <label className="choose-pic mt-2" htmlFor="pic">{changePictureText()}</label>
                 }
                 
             </div>

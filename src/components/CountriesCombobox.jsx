@@ -1,6 +1,6 @@
 import React from 'react'
 import { languageTranslate } from '../helpers/countries'
-
+import {chooseACountryText} from '../helpers/texts'
 import '../public/css/CountriesCombobox.css'
 
 const CountriesCombobox = (props) => {
@@ -37,7 +37,13 @@ const CountriesCombobox = (props) => {
 
     return (
         <>
-            <input id="search-select-country" list="select-country" name="browser" placeholder="Choose a Country" />
+            <input 
+                id="search-select-country" 
+                list="select-country" 
+                name="browser" 
+                placeholder={chooseACountryText()} 
+                onChange={e => setState({ ...state, country: e.target.value })}
+            />
             <datalist
                 className="mdb-select md-form" searchable="Search here.."
                 id="select-country"

@@ -242,16 +242,67 @@ export const cookingTimeInMinutesText = () =>{
     }
 } 
 
-export const ingredientsText = () =>{
+export const chooseAPictureText = () =>{
     switch (language){
         case "spanish":
-            return "Ingredientes";
+            return "Elija una imagen";
         case "english":
-            return "Ingredients";      
+            return "Choose a picture";      
         case "dutch":
-            return "Ingredients in dutch";          
+            return "Choose a picture in dutch";          
         default:
-            return "Ingredients";      
+            return "Choose a picture";      
     }
 } 
+export const changePictureText = () =>{
+    switch (language){
+        case "spanish":
+            return "Cambiar la imagen";
+        case "english":
+            return "Change picture";      
+        case "dutch":
+            return "Change picture in dutch";          
+        default:
+            return "Change picture";      
+    }
+} 
+export const dropAFileOr = () =>{
+    switch (language){
+        case "spanish":
+            return "Arrastre un archivo o";
+        case "english":
+            return "Drop a file or";      
+        case "dutch":
+            return "Drop a file or in dutch";          
+        default:
+            return "Drop a file or";      
+    }
+} 
+
+export const clickHereText = () =>{
+    switch (language){
+        case "spanish":
+            return "Haga click aquí";
+        case "english":
+            return "Click here";      
+        case "dutch":
+            return "Click here in dutch";          
+        default:
+            return "Click here";      
+    }
+} 
+
+export const chooseACountryText = () =>{
+    switch (language){
+        case "spanish":
+            return "Elija un país";
+        case "english":
+            return "Choose a country";      
+        case "dutch":
+            return "Choose a country in dutch";          
+        default:
+            return "Choose a country";      
+    }
+} 
+
 

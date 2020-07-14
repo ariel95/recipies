@@ -67,6 +67,9 @@ const NewRecipie = (props) => {
                             value={recipie.name}
                             onChange={e => setRecipie({ ...recipie, name: e.target.value })}
                         />
+                        <div class="invalid-feedback">
+                            This field is necesary
+                        </div>
                     </div>
                     <div className="form-group col-xs-12 col-md-6 col-lg-4">
                         <label htmlFor="description" className="info">{descriptionText()}</label>
@@ -92,6 +95,42 @@ const NewRecipie = (props) => {
                             onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
                         />
                     </div>
+                    {/* {
+                        recipie.ingredients.length === 0 ? (
+                            <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                                <label htmlFor="cookingTime" className="info">{ingredientsText()}</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="cookingTime"
+                                    value={recipie.cookingTimeInMinutes === 0 ? "" : recipie.cookingTimeInMinutes}
+                                    onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
+                                />
+                            </div>
+                        ) : (
+                            <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                                <label htmlFor="cookingTime" className="info">{ingredientsText()}</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="cookingTime"
+                                    value={recipie.cookingTimeInMinutes === 0 ? "" : recipie.cookingTimeInMinutes}
+                                    onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
+                                />
+                            </div>
+                        )
+
+                    } */}
+                    {/* <div className="form-group col-xs-12 col-md-6 col-lg-4">
+                        <label htmlFor="cookingTime" className="info">{ingredientsText()}</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="cookingTime"
+                            value={recipie.cookingTimeInMinutes === 0 ? "" : recipie.cookingTimeInMinutes}
+                            onChange={e => setRecipie({ ...recipie, cookingTimeInMinutes: e.target.value })}
+                        />
+                    </div> */}
                     <button type="submit" hidden></button>
                 </form>
             </div>

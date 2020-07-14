@@ -16,6 +16,7 @@
 #image-upload #dropTarget span {
     margin: auto;
     display: block;
+    text-align: center;
 }
 
 #image-upload .choose-pic {
