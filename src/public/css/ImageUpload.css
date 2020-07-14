@@ -5,10 +5,19 @@
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 30px;
+    display: flex;
 }
 
 #image-upload #dropTarget img {
-    height: 200px;
+    height: 180px;
     margin: auto;
     display: block;
+}
+#image-upload #dropTarget span {
+    margin: auto;
+    display: block;
+}
+
+#image-upload .choose-pic {
+    color: #ff126c;
 }

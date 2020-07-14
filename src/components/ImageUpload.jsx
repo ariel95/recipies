@@ -81,7 +81,18 @@ const ImageUpload = (props) => {
     return (
         <div id="image-upload" >
             <div id="dropTarget">
-                <img id="img" src={imageSelected} alt=""/>
+                {
+                    imageSelected ? 
+                    <img id="img" src={imageSelected} alt=""/> 
+                    :
+                    (
+                        <span> 
+                            Drop a file or
+                            <label className="choose-pic mt-2" htmlFor="pic">&nbsp;Click here</label>
+                        </span>
+                    )
+                }
+                
             </div>
             <div className="custom-file" style={{ textAlign: "center" }}>
                 <input
@@ -92,7 +103,13 @@ const ImageUpload = (props) => {
                     onChange={chooseFile}
                     style={{ display: "none" }}
                 />
-                <label className="choose-pic btn btn-dark mt-2" htmlFor="pic">Picture</label>
+                {
+                    !imageSelected ? 
+                        <label className="choose-pic mt-2" htmlFor="pic">Choose a picture</label>
+                    :
+                        <label className="choose-pic mt-2" htmlFor="pic">Change picture</label>
+                }
+                
             </div>
         </div>
 
