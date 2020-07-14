@@ -43,21 +43,43 @@ export const getMyRecipies = () => async (dispatch, getState) => {
 
     const { user } = getState().user
     const arrayOfRecipies = [];
-    await db.collection('recipies').where("uid", "==", user.uid).orderBy("date", "desc").get()
-        .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                let data = doc.data();
-                data = { ...data, id: doc.id };
-                arrayOfRecipies.push(data);
-            });
-            dispatch({
-                type: GET_RECIPIES_SUCCESS,
-                payload: arrayOfRecipies
-            })
+    try {
+        const docs = await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").get()
+
+        await Promise.all(docs.docs.map(async (doc) => {
+            let data = doc.data();
+            const user = await db.collection('users').doc(data.uid).get()
+            let dataUser = user.data();
+            data = { ...data, id: doc.id, user: dataUser };
+            arrayOfRecipies.push(data);
+        }));
+
+        dispatch({
+            type: GET_RECIPIES_SUCCESS,
+            payload: arrayOfRecipies
         })
-        .catch(function (error) {
-            console.log("Error getting documents: ", error);
-        });
+
+    } catch (error) {
+        console.log("Error getting documents: ", error);
+            dispatch({
+                type: RECIPIE_ERROR
+            })
+    }
+    // await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").get()
+    //     .then(function (querySnapshot) {
+    //         querySnapshot.forEach(function (doc) {
+    //             let data = doc.data();
+    //             data = { ...data, id: doc.id };
+    //             arrayOfRecipies.push(data);
+    //         });
+    //         dispatch({
+    //             type: GET_RECIPIES_SUCCESS,
+    //             payload: arrayOfRecipies
+    //         })
+    //     })
+    //     .catch(function (error) {
+    //         console.log("Error getting documents: ", error);
+    //     });
 }
 
 export const getRecipies = () => async (dispatch, getState) => {
@@ -67,22 +89,29 @@ export const getRecipies = () => async (dispatch, getState) => {
     // .startAt(1000000)
     // .limit(3)
     const arrayOfRecipies = [];
-    await db.collection('recipies').orderBy("date", "desc").get()
-        .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                let data = doc.data();
-                // console.log(data)
-                data = { ...data, id: doc.id };
-                arrayOfRecipies.push(data);
-            });
-            dispatch({
-                type: GET_RECIPIES_SUCCESS,
-                payload: arrayOfRecipies
-            })
+    try {
+        const docs = await db.collection('recipies').orderBy("date", "desc").get();
+
+        await Promise.all(docs.docs.map(async (doc) => {
+            let data = doc.data();
+            const user = await db.collection('users').doc(data.uid).get()
+            let dataUser = user.data();
+            data = { ...data, id: doc.id, user: dataUser };
+            arrayOfRecipies.push(data);
+        }));
+
+        dispatch({
+            type: GET_RECIPIES_SUCCESS,
+            payload: arrayOfRecipies
         })
-        .catch(function (error) {
-            console.log("Error getting documents: ", error);
-        });
+
+    } catch (error) {
+        console.log("Error getting documents: ", error);
+            dispatch({
+                type: RECIPIE_ERROR
+            })
+    }
+        
 }
 
 export const addRecipie = (recipie, image) => async (dispatch, getState) => {
@@ -103,7 +132,7 @@ export const addRecipie = (recipie, image) => async (dispatch, getState) => {
     }
 
     //Add user id and date to the recipie
-    recipie = { ...recipie, uid: user.uid , user: user, date: new Date() }
+    recipie = { ...recipie, uid: user.email, date: new Date() }
 
     //Add the recipie    
     db.collection("recipies").add(recipie)
@@ -130,7 +159,7 @@ export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
     db.collection("recipies").doc(idRecipie).get()
         .then(function (doc) {
             if (doc.exists) {
-                if (user.uid !== doc.data().user.uid) {
+                if (user.email !== doc.data().uid) {
                     console.log("No puede borrar")
                     return;
                 }

@@ -25,7 +25,7 @@ const Recipie = (props) => {
     <div className="recipie card">
       <div className="row no-gutters">
         {
-          dataRecipie.user && isMobile() && (
+          isMobile() && (
             <RecipieCardHeader data={dataRecipie} deleteFunction={deletingRecipie}/>
           )
         }
@@ -35,7 +35,7 @@ const Recipie = (props) => {
         </div>
         <div className="col-md-8">
           {
-           dataRecipie.user && !isMobile() && (
+           !isMobile() && (
             <RecipieCardHeader data={dataRecipie} deleteFunction={deletingRecipie}/>
           )
           }
