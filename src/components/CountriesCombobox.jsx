@@ -1,8 +1,10 @@
 import React from 'react'
-import {languageTranslate} from '../helpers/countries'
+import { languageTranslate } from '../helpers/countries'
+
+import '../public/css/CountriesCombobox.css'
 
 const CountriesCombobox = (props) => {
-    
+
     var isoCountriesLanguages = require('iso-countries-languages');
 
     var countries = isoCountriesLanguages.getCountries(languageTranslate());
@@ -25,7 +27,7 @@ const CountriesCombobox = (props) => {
             <>
                 {
                     arrayOfCountries.map(country => (
-                        <option value={country.key} key={country.key}>{country.value}</option>
+                        <option value={country.value} key={country.key}>{country.value}</option>
                     ))
                 }
             </>
@@ -34,16 +36,18 @@ const CountriesCombobox = (props) => {
     }
 
     return (
-        <select
-            className="custom-select"
-            id="inputGroupSelect01"
-            onChange={e => setState({ ...state, country: e.target.value })}
-        >
-            <option defaultValue>Choose...</option>
-            {
-                loadCountries()
-            }
-        </select>
+        <>
+            <input id="search-select-country" list="select-country" name="browser" placeholder="Choose a Country" />
+            <datalist
+                className="mdb-select md-form" searchable="Search here.."
+                id="select-country"
+                onChange={e => setState({ ...state, country: e.target.value })}
+            >
+                {
+                    loadCountries()
+                }
+            </datalist >
+        </>
     )
 }
 
