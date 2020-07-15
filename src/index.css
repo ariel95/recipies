@@ -1,5 +1,6 @@
 :root{
   --text-color: rgba(97, 97, 97, 0.9);
+  --app-color: #ff126c;
 }
 
 body {
@@ -42,4 +43,8 @@ input:focus{
 label.info {
   color: #b0b0b0;
   font-size: 14px;
+}
+
+.color-app{
+  color:var(--app-color);
 }

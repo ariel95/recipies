@@ -1,8 +1,9 @@
 import React from 'react'
 import Recipie from './Recipie'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMyRecipies } from '../redux/recipiesDucks'
+import { getMyRecipies, getMoreMyRecipies } from '../redux/recipiesDucks'
 import Loading from '../components/Loading'
+import MoreButton from '../components/MoreButton'
 
 const MyRecipies = () => {
 
@@ -13,21 +14,33 @@ const MyRecipies = () => {
         dispatch(getMyRecipies());
     }, [dispatch, recipies.hasToUpdate])
 
+    const moreRecipies = () => {
+        dispatch(getMoreMyRecipies());
+    }
 
     return (
         <div id="my-recipies">
             {
                 recipies.hasLookedForData ?
                     (recipies.results.length > 0 ?
-                        (recipies.results.map(recipie => (
-                            <Recipie data={recipie} key={recipie.id} />
-                        ))) : (
-                            <div style={{width: "100%",textAlign: "center",}}>
+                        <>
+                            {
+                                recipies.results.map(recipie => (
+                                    <Recipie data={recipie} key={recipie.id} />
+                                ))
+                            }
+                            {
+                                !recipies.noMoreData &&
+                                <MoreButton click={moreRecipies} loading={recipies.loading} />
+                            }
+                        </>
+                        : (
+                            <div style={{ width: "100%", textAlign: "center", }}>
                                 <a
                                     href="/newRecipie"
                                     style={{ color: "#ff126c" }}
                                 >
-                                        Aún no tienes recetas! <br />
+                                    Aún no tienes recetas! <br />
                                     Haz click aquí para empezar a agregar!
                                 </a>
                             </div>

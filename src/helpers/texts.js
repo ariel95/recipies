@@ -318,3 +318,15 @@ export const numberOfServingsText = () =>{
     }
 } 
 
+export const seeMoreText = () =>{
+    switch (language){
+        case "spanish":
+            return "Ver más";
+        case "english":
+            return "See more";      
+        case "dutch":
+            return "See more in dutch";          
+        default:
+            return "See more";      
+    }
+} 
