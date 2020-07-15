@@ -3,6 +3,7 @@ import { db, storage } from '../firebase'
 
 // constant
 const dataInicial = {
+    redirect: null,
     hasToUpdate: 0,
     loading: false,
     count: 0,
@@ -25,11 +26,11 @@ export default function userReducer(state = dataInicial, action) {
         case GET_RECIPIES_SUCCESS:
             return { ...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true }
         case ADD_RECIPIE_SUCCESS:
-            return { ...state, loading: false, }
+            return { ...state, loading: false, redirect:true }
         case DELETE_RECIPIE_SUCCESS:
-            return { ...state, loading: false, hasToUpdate: state.hasToUpdate+1 }
+            return { ...state, loading: false, hasToUpdate: state.hasToUpdate+1}
         case RECIPIE_ERROR:
-            return { ...state, loading: false}
+            return { ...state, loading: false }
         default:
             return { ...state }
     }
@@ -44,8 +45,10 @@ export const getMyRecipies = () => async (dispatch, getState) => {
     const { user } = getState().user
     const arrayOfRecipies = [];
     try {
+        //Get recipies
         const docs = await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").get()
 
+        //Get owners of that recipies
         await Promise.all(docs.docs.map(async (doc) => {
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
@@ -65,21 +68,7 @@ export const getMyRecipies = () => async (dispatch, getState) => {
                 type: RECIPIE_ERROR
             })
     }
-    // await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").get()
-    //     .then(function (querySnapshot) {
-    //         querySnapshot.forEach(function (doc) {
-    //             let data = doc.data();
-    //             data = { ...data, id: doc.id };
-    //             arrayOfRecipies.push(data);
-    //         });
-    //         dispatch({
-    //             type: GET_RECIPIES_SUCCESS,
-    //             payload: arrayOfRecipies
-    //         })
-    //     })
-    //     .catch(function (error) {
-    //         console.log("Error getting documents: ", error);
-    //     });
+    
 }
 
 export const getRecipies = () => async (dispatch, getState) => {

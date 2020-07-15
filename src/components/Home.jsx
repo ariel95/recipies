@@ -9,22 +9,33 @@ const Home = () => {
 
     const recipies = useSelector(store => store.recipie)
     const dispatch = useDispatch();
-    
+
     React.useEffect(() => {
         dispatch(getRecipies());
-    },[recipies.hasToUpdate ,dispatch])
+    }, [recipies.hasToUpdate, dispatch])
 
     return (
         <>
             <TopNavbar />
             <div id="home">
                 {
-                    recipies.hasLookedForData ? 
-                        ( recipies.results.length > 0 ? 
+                    recipies.hasLookedForData ?
+                        (recipies.results.length > 0 ?
                             (recipies.results.map(recipie => (
                                 <Recipie data={recipie} key={recipie.id} />
-                            ))): (<div>No data</div>)
-                        ) : 
+                            ))) :
+                            (
+                                <div style={{width: "100%",textAlign: "center",}}>
+                                <a
+                                    href="/newRecipie"
+                                    style={{ color: "#ff126c" }}
+                                >
+                                        Aún no se publicaron recetas! <br />
+                                    Haz click aquí y se el primero en agregar!
+                                </a>
+                            </div>
+                            )
+                        ) :
                         <Loading />
                 }
             </div>

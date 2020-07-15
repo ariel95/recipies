@@ -9,13 +9,23 @@ import TopNavbar from '../components/TopNavbar'
 import {numberOfServingsText, newRecipieText, nameText, descriptionText, countryOfOriginText, cookingTimeInMinutesText, ingredientsText } from '../helpers/texts'
 import ImageUpload from './ImageUpload'
 import CountriesCombobox from './CountriesCombobox'
+import LoadingBlocked from '../components/LoadingBlocked'
+import Recipie from './Recipie'
 
 const NewRecipie = (props) => {
 
     const dispatch = useDispatch();
-    const { loading } = useSelector(store => store.recipie);
+    const { loading, redirect } = useSelector(store => store.recipie);
     const [recipie, setRecipie] = React.useState(initialRecipiesData);
     const [image, setImage] = React.useState(null);
+
+
+    React.useEffect(() => {
+        if(redirect){
+            window.location.href = "/";
+        }
+    }, [redirect])
+
 
     const addRecipieSubmit = (e) => {
         e.preventDefault();
@@ -44,13 +54,13 @@ const NewRecipie = (props) => {
                 </span>
 
                 {
-                    !loading ? (
+                    // !loading ? (
                         <FontAwesomeIcon icon={faCheck} onClick={addRecipieSubmit} />
-                    ) : (
-                            <div className="spinner-border" style={{ width: "25px", height: "25px" }} role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        )
+                    // ) : (
+                    //         <div className="spinner-border" style={{ width: "25px", height: "25px" }} role="status">
+                    //             <span className="sr-only">Loading...</span>
+                    //         </div>
+                    //     )
                 }
 
             </TopNavbar>
@@ -143,6 +153,12 @@ const NewRecipie = (props) => {
                     </div> */}
                     <button type="submit" hidden></button>
                 </form>
+                {
+                    loading && (
+                        <LoadingBlocked />
+                    ) 
+                }
+
             </div>
         </>
 
