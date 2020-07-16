@@ -61,7 +61,7 @@ function RouterApp() {
             <PrivateRoute component={Profile} path="/Profile" exact />
             <PrivateRoute component={EditProfile} path="/EditProfile" exact />
             <PrivateRoute component={NewRecipie} path="/NewRecipie" exact />
-            <PrivateRoute component={Search} path="/Search" exact />
+            <Route component={Search} path="/Search" exact />
             <Route component={NotFound} path="*" />
           </Switch>
         ) : (

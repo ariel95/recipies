@@ -54,14 +54,23 @@ export const getMyRecipies = () => async (dispatch, getState) => {
         //Get recipies
         const docs = await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").limit(limit).get()
 
-        //Get owners of that recipies
-        await Promise.all(docs.docs.map(async (doc) => {
+        // //Get owners of that recipies
+        // await Promise.all(docs.docs.map(async (doc) => {
+        //     let data = doc.data();
+        //     const user = await db.collection('users').doc(data.uid).get()
+        //     let dataUser = user.data();
+        //     data = { ...data, id: doc.id, user: dataUser };
+        //     arrayOfRecipies.push(data);
+        // }));
+
+        for (let i = 0; i < docs.docs.length; i++) {
+            const doc = docs.docs[i];
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
             data = { ...data, id: doc.id, user: dataUser };
             arrayOfRecipies.push(data);
-        }));
+        }
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
