@@ -30,9 +30,9 @@ export default function userReducer(state = dataInicial, action) {
         case GET_RECIPIES_SUCCESS:
             return { ...state, loading: false, results: action.payload, count: action.payload.length, hasLookedForData: true }
         case ADD_RECIPIE_SUCCESS:
-            return { ...state, loading: false, redirect:true }
+            return { ...state, loading: false, redirect: true }
         case DELETE_RECIPIE_SUCCESS:
-            return { ...state, loading: false, hasToUpdate: state.hasToUpdate+1}
+            return { ...state, loading: false, hasToUpdate: state.hasToUpdate + 1 }
         case RECIPIE_ERROR:
             return { ...state, loading: false }
         case RECIPIES_NO_MORE_LEFT:
@@ -70,11 +70,11 @@ export const getMyRecipies = () => async (dispatch, getState) => {
 
     } catch (error) {
         console.log("Error getting documents: ", error);
-            dispatch({
-                type: RECIPIE_ERROR
-            })
+        dispatch({
+            type: RECIPIE_ERROR
+        })
     }
-    
+
 }
 
 // action
@@ -86,13 +86,13 @@ export const getMoreMyRecipies = () => async (dispatch, getState) => {
     const { user } = getState().user
     const arrayOfRecipies = getState().recipie.results;
     try {
-        const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length -1].id).get();
+        const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length - 1].id).get();
         const docs = await db.collection('recipies').where("uid", "==", user.email).orderBy("date", "desc").startAfter(lastRecipie).limit(limit).get()
 
-        if(docs.docs.length === 0){
+        if (docs.docs.length === 0) {
             dispatch({
                 type: RECIPIES_NO_MORE_LEFT
-            })            
+            })
             return;
         }
 
@@ -101,7 +101,7 @@ export const getMoreMyRecipies = () => async (dispatch, getState) => {
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser};
+            data = { ...data, id: doc.id, user: dataUser };
             arrayOfRecipies.push(data);
         }
 
@@ -112,9 +112,9 @@ export const getMoreMyRecipies = () => async (dispatch, getState) => {
 
     } catch (error) {
         console.log("Error getting documents: ", error);
-            dispatch({
-                type: RECIPIE_ERROR
-            })
+        dispatch({
+            type: RECIPIE_ERROR
+        })
     }
 }
 
@@ -123,28 +123,20 @@ export const getRecipies = () => async (dispatch, getState) => {
     dispatch({
         type: RECIPIE_LOADING
     })
-    // .startAt(1000000)
-    // .limit(3)
-    const arrayOfRecipies = [];
-    try {
-        const docs = await db.collection('recipies').limit(limit).orderBy("date", "desc").get();
 
-        // await Promise.all(docs.docs.map(async (doc) => {
-        //     let data = doc.data();
-        //     // const user = await db.collection('users').doc(data.uid).get()
-        //     // let dataUser = user.data();
-        //     data = { ...data, id: doc.id};
-        //     arrayOfRecipies.push(data);
-        // }));
+    try {
+        const arrayOfRecipies = [];
+        let docs = null;
+
+        docs = await db.collection('recipies').limit(limit).orderBy("date", "desc").get();
         for (let i = 0; i < docs.docs.length; i++) {
             const doc = docs.docs[i];
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser};
+            data = { ...data, id: doc.id, user: dataUser };
             arrayOfRecipies.push(data);
         }
-
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
@@ -153,11 +145,11 @@ export const getRecipies = () => async (dispatch, getState) => {
 
     } catch (error) {
         console.log("Error getting documents: ", error);
-            dispatch({
-                type: RECIPIE_ERROR
-            })
+        dispatch({
+            type: RECIPIE_ERROR
+        })
     }
-        
+
 }
 
 export const getMoreRecipies = () => async (dispatch, getState) => {
@@ -168,15 +160,15 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
     // .limit(3)
     const arrayOfRecipies = getState().recipie.results;
     try {
-        const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length -1].id).get();
+        const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length - 1].id).get();
         const docs = await db.collection('recipies').orderBy("date", "desc").startAfter(lastRecipie).limit(limit).get();
-        
+
         console.log(docs.docs.length === 0)
 
-        if(docs.docs.length === 0){
+        if (docs.docs.length === 0) {
             dispatch({
                 type: RECIPIES_NO_MORE_LEFT
-            })            
+            })
             return;
         }
 
@@ -185,7 +177,7 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser};
+            data = { ...data, id: doc.id, user: dataUser };
             arrayOfRecipies.push(data);
         }
 
@@ -196,11 +188,11 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
 
     } catch (error) {
         console.log("Error getting documents: ", error);
-            dispatch({
-                type: RECIPIE_ERROR
-            })
+        dispatch({
+            type: RECIPIE_ERROR
+        })
     }
-        
+
 }
 
 
@@ -282,4 +274,50 @@ export const deleteRecipie = (idRecipie) => async (dispatch, getState) => {
         });
 
 
+}
+
+export const getSearchedRecipies = (search) => async (dispatch, getState) => {
+    dispatch({
+        type: RECIPIE_LOADING
+    })
+
+    try {
+        const arrayOfRecipies = [];
+        if (search && search !== "") {
+            console.log("getRecipies with search")
+            //Get all the recipies
+            const docs = await db.collection('recipies').get();
+
+            //Get owners of that recipies
+            await Promise.all(docs.docs.map(async (doc) => {
+                let data = doc.data();
+                const user = await db.collection('users').doc(data.uid).get()
+                let dataUser = user.data();
+                data = { ...data, id: doc.id, user: dataUser };
+
+                if (match(data, search)) {
+                    arrayOfRecipies.push(data);
+                }
+
+            }));
+        }
+
+        dispatch({
+            type: GET_RECIPIES_SUCCESS,
+            payload: arrayOfRecipies
+        })
+
+    } catch (error) {
+        console.log("Error getting documents: ", error);
+        dispatch({
+            type: RECIPIE_ERROR
+        })
+    }
+}
+
+const match = (data, search) => {
+    return data.user.email.toLowerCase().includes(search.toLowerCase().trim())
+        || data.user.displayName.toLowerCase().includes(search.toLowerCase().trim())
+        || data.name.toLowerCase().includes(search.toLowerCase().trim())
+        || data.description.toLowerCase().includes(search.toLowerCase().trim())
 }

@@ -10,7 +10,7 @@ import {numberOfServingsText, newRecipieText, nameText, descriptionText, country
 import ImageUpload from './ImageUpload'
 import CountriesCombobox from './CountriesCombobox'
 import LoadingBlocked from '../components/LoadingBlocked'
-import Recipie from './Recipie'
+// import Recipie from './Recipie'
 
 const NewRecipie = (props) => {
 

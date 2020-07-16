@@ -330,3 +330,42 @@ export const seeMoreText = () =>{
             return "See more";      
     }
 } 
+
+export const startToSearchRecipiesText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Empezar a buscar recetas!";
+        case "english":
+            return "Start to search for recipies!";      
+        case "dutch":
+            return "Start to search for recipies! in dutch";          
+        default:
+            return "Start to search for recipies!";      
+    }
+} 
+
+export const searchText = () =>{
+    switch (language){
+        case "spanish":
+            return "Buscar";
+        case "english":
+            return "Search";      
+        case "dutch":
+            return "Search in dutch";          
+        default:
+            return "Search";      
+    }
+}
+
+export const noResultsForTheSearchText = () =>{
+    switch (language){
+        case "spanish":
+            return "No se encontraron resultados para la busqueda...";
+        case "english":
+            return "No results for the search";      
+        case "dutch":
+            return "No results for the search in dutch";          
+        default:
+            return "No results for the search";      
+    }
+}

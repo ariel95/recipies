@@ -34,11 +34,9 @@ const Home = () => {
                                     ))
                                 }
                                 {
-                                !recipies.noMoreData &&
+                                    !recipies.noMoreData &&
                                     <MoreButton click={moreRecipies} loading={recipies.loading} />
                                 }
-                                
-
                             </>
                             :
                             (

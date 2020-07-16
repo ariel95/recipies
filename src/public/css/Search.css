@@ -1,0 +1,24 @@
+#search{
+    width: 90%;
+}
+
+#search input {
+    border:none;
+    border-bottom: 1px solid #a5a5a5;
+    border-radius: 0;
+    padding-right: 40px;
+    background: none;
+}
+#search input:focus {
+    outline: none;
+}
+
+#filters {
+    height: 0;
+    transition: height 1s;
+    overflow: hidden;
+}
+
+#filters.active{
+    height: 90vh;
+}
