@@ -9,6 +9,8 @@ import '../public/css/Search.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import {startToSearchRecipiesText, searchText, noResultsForTheSearchText} from '../helpers/texts'
+import Filters from './Filters';
+import LastSearches from './LastSearches';
 
 const Search = () => {
 
@@ -16,6 +18,7 @@ const Search = () => {
     const recipies = useSelector(store => store.recipie)
     const dispatch = useDispatch();
     const [activeSearch, setActiveSearch] = React.useState(true)
+    const [searches, setSearches] = React.useState(localStorage.getItem('searches') ? localStorage.getItem('searches').split(",") : []);
 
     React.useEffect(() => {
         document.getElementById('search-input').focus();
@@ -26,9 +29,18 @@ const Search = () => {
     // }
 
     const searchEvent = () => {
+        const index = searches.indexOf(search.trim());
+        if(index !== -1){
+            searches.splice(index,1);
+        }
+        searches.push(search.trim());
+        if(searches.length >= 11){
+            searches.splice(0,searches.length-11)
+        }
+        localStorage.setItem("searches",searches);
         document.getElementById('search-input').blur();
         setActiveSearch(false)
-        dispatch(getSearchedRecipies(search));
+        dispatch(getSearchedRecipies(search.trim()));
     }
 
     const onEnter = (e) => {
@@ -62,7 +74,6 @@ const Search = () => {
                         onKeyUp={onEnter}
                         onChange={(e) => setSearch(e.target.value)}
                         onFocus={() => setActiveSearch(true)}
-                    // onBlur={() => setActiveSearch(false)}
                     />
 
                     <FontAwesomeIcon
@@ -78,12 +89,13 @@ const Search = () => {
 
                 </div>
             </TopNavbar>
-            <div id="filters" className={activeSearch ? "active" : ""}>
-                <p>Hola soy un filtro</p>
-                <p>Hola soy otro filtro</p>
-                <p>Hola me llamo filtro</p>
-                <p>Holis que onda amigo soy un filtro</p>
-            </div>
+            {/* <Filters activeSearch={activeSearch} searchEvent={searchEvent}/> */}
+            <LastSearches 
+                activeSearch={activeSearch} 
+                searchEvent={searchEvent} 
+                setSearches={setSearches} 
+                searches={searches}
+            />
             {
                 !activeSearch && (
                     recipies.loading ? (

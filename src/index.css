@@ -53,3 +53,12 @@ label.info {
 .hide {
   display:none;
 }
+
+.btn-default{
+  border: none !important;
+    background: none !important;
+}
+.btn-default:focus{
+    outline: none !important;
+    box-shadow: none !important;
+}

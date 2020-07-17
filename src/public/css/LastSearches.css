@@ -1,0 +1,29 @@
+#last-searches {
+    height: 0;
+    transition: height 1s;
+    overflow: hidden;
+}
+
+#last-searches.active{
+    height: 90vh;
+}
+
+#last-searches label{
+    color: #b0b0b0;
+    font-size: 18px;
+}
+
+#last-searches a {
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+    color: #b0b0b0;
+}
+
+#last-searches button{
+    position: absolute;
+    right: 1rem;
+    top: 14px;
+    z-index: 10;
+    color: #b0b0b0;
+}

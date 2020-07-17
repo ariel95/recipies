@@ -1,0 +1,24 @@
+#filters form input {
+    width: 100%;
+}
+
+#filters form .form-group label {
+    color: #b0b0b0;
+    font-size: 14px;
+}
+
+
+#filters form input {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+}
+
+#filters {
+    height: 0;
+    transition: height 1s;
+    overflow: hidden;
+}
+
+#filters.active{
+    height: 90vh;
+}
