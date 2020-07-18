@@ -12,7 +12,7 @@ const dataInicial = {
     results: []
 }
 
-const limit = 3;
+const limit = 10;
 
 // types
 const RECIPIE_LOADING = 'RECIPIE_LOADING'
@@ -63,14 +63,16 @@ export const getMyRecipies = () => async (dispatch, getState) => {
         //     arrayOfRecipies.push(data);
         // }));
 
-        for (let i = 0; i < docs.docs.length; i++) {
-            const doc = docs.docs[i];
-            let data = doc.data();
-            const user = await db.collection('users').doc(data.uid).get()
-            let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser };
-            arrayOfRecipies.push(data);
-        }
+        // for (let i = 0; i < docs.docs.length; i++) {
+        //     const doc = docs.docs[i];
+        //     let data = doc.data();
+        //     const user = await db.collection('users').doc(data.uid).get()
+        //     let dataUser = user.data();
+        //     data = { ...data, id: doc.id, user: dataUser };
+        //     arrayOfRecipies.push(data);
+        // }
+        const array = await processRecipies(docs);
+        arrayOfRecipies.push(...array);
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
@@ -105,14 +107,16 @@ export const getMoreMyRecipies = () => async (dispatch, getState) => {
             return;
         }
 
-        for (let i = 0; i < docs.docs.length; i++) {
-            const doc = docs.docs[i];
-            let data = doc.data();
-            const user = await db.collection('users').doc(data.uid).get()
-            let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser };
-            arrayOfRecipies.push(data);
-        }
+        // for (let i = 0; i < docs.docs.length; i++) {
+        //     const doc = docs.docs[i];
+        //     let data = doc.data();
+        //     const user = await db.collection('users').doc(data.uid).get()
+        //     let dataUser = user.data();
+        //     data = { ...data, id: doc.id, user: dataUser };
+        //     arrayOfRecipies.push(data);
+        // }
+        const array = await processRecipies(docs);
+        arrayOfRecipies.push(...array);
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
@@ -138,14 +142,8 @@ export const getRecipies = () => async (dispatch, getState) => {
         let docs = null;
 
         docs = await db.collection('recipies').limit(limit).orderBy("date", "desc").get();
-        for (let i = 0; i < docs.docs.length; i++) {
-            const doc = docs.docs[i];
-            let data = doc.data();
-            const user = await db.collection('users').doc(data.uid).get()
-            let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser };
-            arrayOfRecipies.push(data);
-        }
+        const array = await processRecipies(docs);
+        arrayOfRecipies.push(...array);
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
@@ -181,14 +179,16 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
             return;
         }
 
-        for (let i = 0; i < docs.docs.length; i++) {
-            const doc = docs.docs[i];
-            let data = doc.data();
-            const user = await db.collection('users').doc(data.uid).get()
-            let dataUser = user.data();
-            data = { ...data, id: doc.id, user: dataUser };
-            arrayOfRecipies.push(data);
-        }
+        // for (let i = 0; i < docs.docs.length; i++) {
+        //     const doc = docs.docs[i];
+        //     let data = doc.data();
+        //     const user = await db.collection('users').doc(data.uid).get()
+        //     let dataUser = user.data();
+        //     data = { ...data, id: doc.id, user: dataUser };
+        //     arrayOfRecipies.push(data);
+        // }
+        const array = await processRecipies(docs);
+        arrayOfRecipies.push(...array);
 
         dispatch({
             type: GET_RECIPIES_SUCCESS,
@@ -302,7 +302,8 @@ export const getSearchedRecipies = (search) => async (dispatch, getState) => {
                 let data = doc.data();
                 const user = await db.collection('users').doc(data.uid).get()
                 let dataUser = user.data();
-                data = { ...data, id: doc.id, user: dataUser };
+                const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
+                data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
 
                 if (match(data, search)) {
                     arrayOfRecipies.push(data);
@@ -330,3 +331,23 @@ const match = (data, search) => {
         || data.name.toLowerCase().includes(search.toLowerCase().trim())
         || data.description.toLowerCase().includes(search.toLowerCase().trim())
 }
+
+const processRecipies = async (docs) => {
+    try {
+        const array = [];
+
+        for (let i = 0; i < docs.docs.length; i++) {
+            const doc = docs.docs[i];
+            let data = doc.data();
+            const user = await db.collection('users').doc(data.uid).get()
+            let dataUser = user.data();
+            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
+            data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
+            array.push(data);
+        }
+        return array;
+
+    } catch (error) {
+        console.log(error)
+    }
+} 

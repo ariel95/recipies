@@ -369,3 +369,31 @@ export const noResultsForTheSearchText = () =>{
             return "No results for the search";      
     }
 }
+
+
+export const lastSearchesText = () =>{
+    switch (language){
+        case "spanish":
+            return "Últimas búsquedas";
+        case "english":
+            return "Last searches";      
+        case "dutch":
+            return "Last searches in dutch";          
+        default:
+            return "Last searches";      
+    }
+}
+
+export const startToSearchText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Comience a realizar busquedas!";
+        case "english":
+            return "Start to search!";      
+        case "dutch":
+            return "Start to search! in dutch";          
+        default:
+            return "Start to search!";      
+    }
+}
+

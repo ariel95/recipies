@@ -2,7 +2,7 @@ import React from 'react'
 import '../public/css/LastSearches.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import { lastSearchesText, startToSearchRecipiesText } from '../helpers/texts'
 
 
 const LastSearches = (props) => {
@@ -11,13 +11,9 @@ const LastSearches = (props) => {
     
     const deleteSearchedElement = (e,elem) => {
         const index = searches.indexOf(elem.trim());
-        console.log("index:" ,index)
-        console.log("searches sin borrar:" ,searches)
         if(index !== -1){
             searches.splice(elem,1);
-            console.log("borrado:" ,index)
         }
-        console.log("searches borrados:" ,searches)
         localStorage.setItem("searches",searches);
         removeElement(e.target.parentElement);
     }
@@ -36,9 +32,9 @@ const LastSearches = (props) => {
             {
                 searches.length > 0 ?
                 (
-                    <label className="pb-2 pt-4 pl-4">Últimas búsquedas</label>
+                    <label className="pb-2 pt-4 pl-4">{lastSearchesText()}</label>
                 ) : (
-                    <label className="pb-2 pt-4 pl-4">¡Comience a realizar busquedas!</label>
+                    <label className="pb-2 pt-4 pl-4">{startToSearchRecipiesText()}</label>
                 )
             }
             

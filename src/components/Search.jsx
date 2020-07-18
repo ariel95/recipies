@@ -9,7 +9,7 @@ import '../public/css/Search.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import {startToSearchRecipiesText, searchText, noResultsForTheSearchText} from '../helpers/texts'
-import Filters from './Filters';
+// import Filters from './Filters';
 import LastSearches from './LastSearches';
 
 const Search = () => {
