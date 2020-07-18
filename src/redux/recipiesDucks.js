@@ -19,6 +19,7 @@ const RECIPIE_LOADING = 'RECIPIE_LOADING'
 const RECIPIE_ERROR = 'RECIPIE_ERROR'
 const GET_RECIPIES_SUCCESS = 'GET_RECIPIES_SUCCESS'
 const ADD_RECIPIE_SUCCESS = 'ADD_RECIPIE_SUCCESS'
+const UPDATE_RECIPIE_SUCCESS = 'UPDATE_RECIPIE_SUCCESS'
 const DELETE_RECIPIE_SUCCESS = 'DELETE_RECIPIE_SUCCESS'
 const RECIPIES_NO_MORE_LEFT = 'RECIPIES_NO_MORE_LEFT'
 
@@ -32,6 +33,8 @@ export default function userReducer(state = dataInicial, action) {
         case ADD_RECIPIE_SUCCESS:
             return { ...state, loading: false, redirect: true }
         case DELETE_RECIPIE_SUCCESS:
+            return { ...state, loading: false, hasToUpdate: state.hasToUpdate + 1 }
+        case UPDATE_RECIPIE_SUCCESS:
             return { ...state, loading: false, hasToUpdate: state.hasToUpdate + 1 }
         case RECIPIE_ERROR:
             return { ...state, loading: false }
@@ -71,7 +74,7 @@ export const getMyRecipies = () => async (dispatch, getState) => {
         //     data = { ...data, id: doc.id, user: dataUser };
         //     arrayOfRecipies.push(data);
         // }
-        const array = await processRecipies(docs);
+        const array = await processRecipies(docs, user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -115,7 +118,7 @@ export const getMoreMyRecipies = () => async (dispatch, getState) => {
         //     data = { ...data, id: doc.id, user: dataUser };
         //     arrayOfRecipies.push(data);
         // }
-        const array = await processRecipies(docs);
+        const array = await processRecipies(docs, user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -140,9 +143,10 @@ export const getRecipies = () => async (dispatch, getState) => {
     try {
         const arrayOfRecipies = [];
         let docs = null;
+        const {user} = getState().user; 
 
         docs = await db.collection('recipies').limit(limit).orderBy("date", "desc").get();
-        const array = await processRecipies(docs);
+        const array = await processRecipies(docs, user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -166,6 +170,7 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
     // .startAt(1000000)
     // .limit(3)
     const arrayOfRecipies = getState().recipie.results;
+    const {user } = getState().user
     try {
         const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length - 1].id).get();
         const docs = await db.collection('recipies').orderBy("date", "desc").startAfter(lastRecipie).limit(limit).get();
@@ -187,7 +192,7 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
         //     data = { ...data, id: doc.id, user: dataUser };
         //     arrayOfRecipies.push(data);
         // }
-        const array = await processRecipies(docs);
+        const array = await processRecipies(docs, user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -212,9 +217,10 @@ export const getFavouritesRecipies = () => async (dispatch, getState) => {
     try {
         const arrayOfRecipies = [];
         let docs = null;
+        const {user} = getState().user
 
         docs = await db.collection('recipies').orderBy("date", "desc").get();
-        const array = await processFavouritesRecipies(docs);
+        const array = await processFavouritesRecipies(docs, user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -389,6 +395,49 @@ export const getSearchedRecipies = (search) => async (dispatch, getState) => {
     }
 }
 
+export const favouriteRecipie = (recipie) => async (dispatch, getState) => {
+    dispatch({
+        type: RECIPIE_LOADING
+    })
+
+    try {
+
+        const {user} = getState().user;
+
+        if(recipie.favourite){
+            db.collection("favourites_users_recipies").where("uid", "==", user.email).where("rid", "==", recipie.id).delete().then(function() {
+                console.log("Document successfully deleted!");
+            }).catch(function(error) {
+                console.error("Error removing document: ", error);
+            });
+        }
+        else{
+            db.collection("favourites_users_recipies").add({
+                uid: user.email,
+                rid: recipie.id
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+        
+
+        dispatch({
+            type: UPDATE_RECIPIE_SUCCESS
+        })
+
+    } catch (error) {
+        console.log("Error getting documents: ", error);
+        dispatch({
+            type: RECIPIE_ERROR
+        })
+    }
+}
+
+
 const match = (data, search) => {
     return data.user.email.toLowerCase().includes(search.toLowerCase().trim())
         || data.user.displayName.toLowerCase().includes(search.toLowerCase().trim())
@@ -396,7 +445,7 @@ const match = (data, search) => {
         || data.description.toLowerCase().includes(search.toLowerCase().trim())
 }
 
-const processRecipies = async (docs) => {
+const processRecipies = async (docs, u) => {
     try {
         const array = [];
 
@@ -405,7 +454,7 @@ const processRecipies = async (docs) => {
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
+            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", u.email).where("rid", "==", doc.id).get()
             data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
             array.push(data);
         }
@@ -416,17 +465,18 @@ const processRecipies = async (docs) => {
     }
 }
 
-const processFavouritesRecipies = async (docs) => {
+const processFavouritesRecipies = async (docs, u) => {
     try {
         const array = [];
-
+        
         for (let i = 0; i < docs.docs.length; i++) {
             const doc = docs.docs[i];
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
+            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", u.email).where("rid", "==", doc.id).get()
             if (!favourite.empty) {
+                console.log("holis");
                 data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
                 array.push(data);
             }
