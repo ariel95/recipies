@@ -7,15 +7,41 @@ import { lastSearchesText, startToSearchRecipiesText } from '../helpers/texts'
 
 const LastSearches = (props) => {
 
-    const { activeSearch, searchEvent, setSearches, searches } = props;
+    const { activeSearch, searchEvent, setSearch, searches } = props;
     
+    const [searchElements, setSearchElements] = React.useState(null)
+    const [update, setUpdate] = React.useState(false)
+
+    React.useEffect(() => {
+        setSearchElements(
+            searches.map((search) => (
+                <div className="last-searches-item" style={{position:"relative"}} key={search}>
+                    <a 
+                        href="#" 
+                        className="list-group-item list-group-item-action pl-4" 
+                        onClick={() => onClickSearch(search)}    
+                    >{search}</a>
+                    <button className="btn-default" onClick={(e) => deleteSearchedElement(e,search) }>
+                        <FontAwesomeIcon icon={faTimes}/>
+                    </button>
+                </div>
+            ))
+        )
+        setUpdate(false);
+    },[searches,update])
+
     const deleteSearchedElement = (e,elem) => {
-        const index = searches.indexOf(elem.trim());
+        const index = searches.indexOf(elem);
+        console.log(index);
+        console.log("sin borrar: ",searches)
         if(index !== -1){
-            searches.splice(elem,1);
+            searches.splice(index,1);
+            console.log("borrado: ",searches)
         }
         localStorage.setItem("searches",searches);
-        removeElement(e.target.parentElement);
+        console.log("final: ",searches)
+        // removeElement(e.target);
+        setUpdate(true);
     }
 
     const removeElement = (elem) => {
@@ -24,7 +50,12 @@ const LastSearches = (props) => {
             removeElement(elem.parentElement)
             return;
         }
-        elem.remove();
+        // elem.remove();
+    }
+
+    const onClickSearch = (s) => {
+        setSearch(s);
+        searchEvent(s);
     }
 
     return (
@@ -40,14 +71,7 @@ const LastSearches = (props) => {
             
             <div className="list-group">
                 {
-                    searches.map((search) => (
-                        <div className="last-searches-item" style={{position:"relative"}} key={search}>
-                            <a href="#" className="list-group-item list-group-item-action pl-4">{search}</a>
-                            <button className="btn-default" onClick={(e) => deleteSearchedElement(e,search) }>
-                                <FontAwesomeIcon icon={faTimes}/>
-                            </button>
-                        </div>
-                    ))
+                    searchElements
                 }
             </div>
         </div>

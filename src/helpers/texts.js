@@ -384,16 +384,5 @@ export const lastSearchesText = () =>{
     }
 }
 
-export const startToSearchText = () =>{
-    switch (language){
-        case "spanish":
-            return "¡Comience a realizar busquedas!";
-        case "english":
-            return "Start to search!";      
-        case "dutch":
-            return "Start to search! in dutch";          
-        default:
-            return "Start to search!";      
-    }
-}
+
 

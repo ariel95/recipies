@@ -293,7 +293,6 @@ export const getSearchedRecipies = (search) => async (dispatch, getState) => {
     try {
         const arrayOfRecipies = [];
         if (search && search !== "") {
-            console.log("getRecipies with search")
             //Get all the recipies
             const docs = await db.collection('recipies').get();
 

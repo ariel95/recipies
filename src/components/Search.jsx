@@ -18,7 +18,7 @@ const Search = () => {
     const recipies = useSelector(store => store.recipie)
     const dispatch = useDispatch();
     const [activeSearch, setActiveSearch] = React.useState(true)
-    const [searches, setSearches] = React.useState(localStorage.getItem('searches') ? localStorage.getItem('searches').split(",") : []);
+    const searches = localStorage.getItem('searches') ? localStorage.getItem('searches').split(",") : [];
 
     React.useEffect(() => {
         document.getElementById('search-input').focus();
@@ -28,7 +28,8 @@ const Search = () => {
     //     dispatch(getMoreRecipies(search));
     // }
 
-    const searchEvent = () => {
+    const searchEvent = (s) => {
+        
         const index = searches.indexOf(search.trim());
         if(index !== -1){
             searches.splice(index,1);
@@ -41,6 +42,21 @@ const Search = () => {
         document.getElementById('search-input').blur();
         setActiveSearch(false)
         dispatch(getSearchedRecipies(search.trim()));
+    }
+
+    const searchingEvent = (s) => {    
+        const index = searches.indexOf(s.trim());
+        if(index !== -1){
+            searches.splice(index,1);
+        }
+        searches.push(s.trim());
+        if(searches.length >= 11){
+            searches.splice(0,searches.length-11)
+        }
+        localStorage.setItem("searches",searches);
+        document.getElementById('search-input').blur();
+        setActiveSearch(false)
+        dispatch(getSearchedRecipies(s.trim()));
     }
 
     const onEnter = (e) => {
@@ -72,6 +88,7 @@ const Search = () => {
                     <input
                         id="search-input"
                         className="form-control"
+                        value={search}
                         placeholder={searchText()}
                         onKeyUp={onEnter}
                         onChange={(e) => setSearch(e.target.value)}
@@ -93,8 +110,8 @@ const Search = () => {
             {/* <Filters activeSearch={activeSearch} searchEvent={searchEvent}/> */}
             <LastSearches 
                 activeSearch={activeSearch} 
-                searchEvent={searchEvent} 
-                setSearches={setSearches} 
+                searchEvent={searchingEvent} 
+                setSearch={setSearch} 
                 searches={searches}
             />
             {
