@@ -26,7 +26,7 @@ const DownNavbar = () => {
         case "/newRecipie":
           setNewRecipieSelected(true);
           break;
-        case "/myRecipies":
+        case "/favourites":
           setMyRecipiesSelected(true);
           break;
         case "/profile":
@@ -56,7 +56,7 @@ const DownNavbar = () => {
           </a>
         </div>
         <div className="flex-item">
-          <a className={myRecipiesSelected?"link navbar-brand flex-item selected":"link navbar-brand flex-item"} href="/myRecipies">
+          <a className={myRecipiesSelected?"link navbar-brand flex-item selected":"link navbar-brand flex-item"} href="/favourites">
             <FontAwesomeIcon icon={faHeart} />
           </a>
         </div>

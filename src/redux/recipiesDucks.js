@@ -204,6 +204,71 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
 
 }
 
+export const getFavouritesRecipies = () => async (dispatch, getState) => {
+    dispatch({
+        type: RECIPIE_LOADING
+    })
+
+    try {
+        const arrayOfRecipies = [];
+        let docs = null;
+
+        docs = await db.collection('recipies').orderBy("date", "desc").get();
+        const array = await processFavouritesRecipies(docs);
+        arrayOfRecipies.push(...array);
+
+        dispatch({
+            type: GET_RECIPIES_SUCCESS,
+            payload: arrayOfRecipies
+        })
+
+    } catch (error) {
+        console.log("Error getting documents: ", error);
+        dispatch({
+            type: RECIPIE_ERROR
+        })
+    }
+
+}
+
+// export const getMoreFavouritesRecipies = () => async (dispatch, getState) => {
+//     dispatch({
+//         type: RECIPIE_LOADING
+//     })
+//     // .startAt(1000000)
+//     // .limit(3)
+//     const arrayOfRecipies = getState().recipie.results;
+//     try {
+//         const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length - 1].id).get();
+//         const docs = await db.collection('recipies').orderBy("date", "desc").startAfter(lastRecipie).limit(limit).get();
+
+//         console.log(docs.docs.length === 0)
+
+//         if (docs.docs.length === 0) {
+//             dispatch({
+//                 type: RECIPIES_NO_MORE_LEFT
+//             })
+//             return;
+//         }
+
+//         const array = await processFavouritesRecipies(docs);
+//         arrayOfRecipies.push(...array);
+
+//         dispatch({
+//             type: GET_RECIPIES_SUCCESS,
+//             payload: arrayOfRecipies
+//         })
+
+//     } catch (error) {
+//         console.log("Error getting documents: ", error);
+//         dispatch({
+//             type: RECIPIE_ERROR
+//         })
+//     }
+
+// }
+
+
 
 export const addRecipie = (recipie, image) => async (dispatch, getState) => {
     dispatch({
@@ -343,6 +408,29 @@ const processRecipies = async (docs) => {
             const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
             data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
             array.push(data);
+        }
+        return array;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const processFavouritesRecipies = async (docs) => {
+    try {
+        const array = [];
+
+        for (let i = 0; i < docs.docs.length; i++) {
+            const doc = docs.docs[i];
+            let data = doc.data();
+            const user = await db.collection('users').doc(data.uid).get()
+            let dataUser = user.data();
+            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", dataUser.email).where("rid", "==", doc.id).get()
+            if (!favourite.empty) {
+                data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
+                array.push(data);
+            }
+
         }
         return array;
 

@@ -16,6 +16,7 @@ import EditProfile from './EditProfile';
 import NewRecipie from './NewRecipie';
 import Loading from './Loading'
 import Search from './Search';
+import Favourites from './Favourites';
 
 function RouterApp() {
   const [firebaseUser, setFirebaseUser] = React.useState(false)
@@ -59,6 +60,7 @@ function RouterApp() {
           <Switch>
             <Route component={Home} path="/" exact />
             <PrivateRoute component={Profile} path="/Profile" exact />
+            <PrivateRoute component={Favourites} path="/Favourites" exact />
             <PrivateRoute component={EditProfile} path="/EditProfile" exact />
             <PrivateRoute component={NewRecipie} path="/NewRecipie" exact />
             <Route component={Search} path="/Search" exact />
