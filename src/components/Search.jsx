@@ -63,9 +63,11 @@ const Search = () => {
         <>
             <TopNavbar>
                 {
-                    activeSearch && <FontAwesomeIcon icon={faChevronLeft} onClick={() => setActiveSearch(false)} />
+                    activeSearch && 
+                    <button className="btn-default"  onClick={() => setActiveSearch(false)} >
+                        <FontAwesomeIcon icon={faChevronLeft}/>
+                    </button>
                 }
-
                 <div id="search">
                     <input
                         id="search-input"
@@ -75,7 +77,6 @@ const Search = () => {
                         onChange={(e) => setSearch(e.target.value)}
                         onFocus={() => setActiveSearch(true)}
                     />
-
                     <FontAwesomeIcon
                         onClick={() => onClickSearchIcon()} 
                         style={{

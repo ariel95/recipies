@@ -32,13 +32,21 @@ const LastSearches = (props) => {
     }
 
     return (
-        <div id="last-searches" className={activeSearch ? "active p-4" : "p-4"}>
-            <label className="pb-2">Últimas búsquedas</label>
+        <div id="last-searches" className={activeSearch ? "active" : ""}>
+            {
+                searches.length > 0 ?
+                (
+                    <label className="pb-2 pt-4 pl-4">Últimas búsquedas</label>
+                ) : (
+                    <label className="pb-2 pt-4 pl-4">¡Comience a realizar busquedas!</label>
+                )
+            }
+            
             <div className="list-group">
                 {
                     searches.map((search) => (
-                        <div className="last-searches-item" style={{position:"relative"}}>
-                            <a href="#" className="list-group-item list-group-item-action" key={search}>{search}</a>
+                        <div className="last-searches-item" style={{position:"relative"}} key={search}>
+                            <a href="#" className="list-group-item list-group-item-action pl-4">{search}</a>
                             <button className="btn-default" onClick={(e) => deleteSearchedElement(e,search) }>
                                 <FontAwesomeIcon icon={faTimes}/>
                             </button>
