@@ -64,11 +64,28 @@ const Profile = (props) => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="name">{nameText()}</label>
-                                <input id="name" type="text" value={user.user.displayName} readOnly disabled />
+                                <label 
+                                    id="name" 
+                                    type="text" 
+                                    style={{display: "block",
+                                            borderBottom: "1px solid #e1e1e1",
+                                            color: "#000000b5"}}
+                                >
+                                    {user.user.displayName}
+                                </label>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="email">{emailText()}</label>
-                                <input id="email" type="text" value={user.user.email} readOnly disabled />
+                                <label 
+                                    id="email" 
+                                    type="text"
+                                    style={{display: "block",
+                                            borderBottom: "1px solid #e1e1e1",
+                                            color: "#000000b5"}}
+                                >
+                                        {user.user.email}
+                                </label>
+
                             </div>
                         </form>
                     </div>
