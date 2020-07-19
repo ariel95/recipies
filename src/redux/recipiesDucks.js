@@ -143,7 +143,7 @@ export const getRecipies = () => async (dispatch, getState) => {
     try {
         const arrayOfRecipies = [];
         let docs = null;
-        const {user} = getState().user; 
+        const { user } = getState().user;
 
         docs = await db.collection('recipies').limit(limit).orderBy("date", "desc").get();
         const array = await processRecipies(docs, user);
@@ -170,7 +170,7 @@ export const getMoreRecipies = () => async (dispatch, getState) => {
     // .startAt(1000000)
     // .limit(3)
     const arrayOfRecipies = getState().recipie.results;
-    const {user } = getState().user
+    const { user } = getState().user
     try {
         const lastRecipie = await db.collection('recipies').doc(arrayOfRecipies[arrayOfRecipies.length - 1].id).get();
         const docs = await db.collection('recipies').orderBy("date", "desc").startAfter(lastRecipie).limit(limit).get();
@@ -217,10 +217,10 @@ export const getFavouritesRecipies = () => async (dispatch, getState) => {
     try {
         const arrayOfRecipies = [];
         let docs = null;
-        const {user} = getState().user
+        const { user } = getState().user
 
-        docs = await db.collection('recipies').orderBy("date", "desc").get();
-        const array = await processFavouritesRecipies(docs, user);
+        // docs = await db.collection('recipies').orderBy("date", "desc").get();
+        const array = await processFavouritesRecipies(user);
         arrayOfRecipies.push(...array);
 
         dispatch({
@@ -402,28 +402,35 @@ export const favouriteRecipie = (recipie) => async (dispatch, getState) => {
 
     try {
 
-        const {user} = getState().user;
+        const { user } = getState().user;
 
-        if(recipie.favourite){
-            db.collection("favourites_users_recipies").where("uid", "==", user.email).where("rid", "==", recipie.id).delete().then(function() {
-                console.log("Document successfully deleted!");
-            }).catch(function(error) {
-                console.error("Error removing document: ", error);
-            });
+        if (recipie.favourite) {
+            const docs = await db.collection("favourites_users_recipies")
+                .where("uid", "==", user.email)
+                .where("rid", "==", recipie.id)
+                .get();
+            const id = docs.docs[0].id;
+            db.collection("favourites_users_recipies").doc(id)
+                .delete()
+                .then(function () {
+                    console.log("Document successfully deleted!");
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
         }
-        else{
+        else {
             db.collection("favourites_users_recipies").add({
                 uid: user.email,
                 rid: recipie.id
             })
-            .then(function() {
-                console.log("Document successfully written!");
-            })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function () {
+                    console.log("Document successfully written!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
         }
-        
+
 
         dispatch({
             type: UPDATE_RECIPIE_SUCCESS
@@ -465,23 +472,40 @@ const processRecipies = async (docs, u) => {
     }
 }
 
-const processFavouritesRecipies = async (docs, u) => {
+const processFavouritesRecipies = async (u) => {
     try {
         const array = [];
-        
-        for (let i = 0; i < docs.docs.length; i++) {
-            const doc = docs.docs[i];
-            let data = doc.data();
-            const user = await db.collection('users').doc(data.uid).get()
-            let dataUser = user.data();
-            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", u.email).where("rid", "==", doc.id).get()
-            if (!favourite.empty) {
-                console.log("holis");
-                data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
-                array.push(data);
-            }
 
-        }
+        const docs = await db.collection('favourites_users_recipies').where("uid", "==", u.email).get()
+
+
+        await Promise.all(docs.docs.map(async (doc) => {
+            let data = doc.data();
+
+            const recipie = await db.collection('recipies').doc(data.rid).get();
+            const recipieData = recipie.data();
+
+            const user = await db.collection('users').doc(recipieData.uid).get()
+            let dataUser = user.data();
+
+            data = { ...recipieData, id: data.rid, user: dataUser, favourite: true };
+            array.push(data);
+        }));
+
+        // for (let i = 0; i < docs.docs.length; i++) {
+        //     const doc = docs.docs[i];
+        //     let data = doc.data();
+
+        //     const recipie = await db.collection('recipies').doc(data.rid).get();
+        //     const recipieData = recipie.data();
+
+        //     const user = await db.collection('users').doc(recipieData.uid).get()
+        //     let dataUser = user.data();
+
+        //     data = { ...recipieData, id: data.rid, user: dataUser, favourite: true };
+        //     array.push(data);
+
+        // }
         return array;
 
     } catch (error) {

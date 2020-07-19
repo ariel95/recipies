@@ -13,8 +13,9 @@ var moment = require('moment'); // require
 
 const Recipie = (props) => {
 
-  const dataRecipie = props.data;
+  
   const dispatch = useDispatch();
+  const [dataRecipie, setDataRecipie] = React.useState(props.data);
   const [isFav, setIsFav] = React.useState(dataRecipie.favourite);
   const getDate = () => {
     const recipieDate = dataRecipie.date.toDate();
@@ -28,10 +29,17 @@ const Recipie = (props) => {
 
   const onClickFavourite = () => {
     dispatch(favouriteRecipie(dataRecipie))
-    if(isFav)
+    if(isFav){
       setIsFav(false);
-    else
+      setDataRecipie( {...dataRecipie, favourite: false})
+    }
+    else{
       setIsFav(true);
+      setDataRecipie({...dataRecipie, favourite: true});
+    }
+      
+
+    
   }
 
   return (
