@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getMyRecipies, getMoreMyRecipies } from '../redux/recipiesDucks'
 import Loading from '../components/Loading'
 import MoreButton from '../components/MoreButton'
+import {clickHereToAddOneText, thereIsNotARecipieYetText} from '../helpers/texts'
 
 const MyRecipies = () => {
 
@@ -35,13 +36,13 @@ const MyRecipies = () => {
                             }
                         </>
                         : (
-                            <div style={{ width: "100%", textAlign: "center", }}>
+                            <div style={{ width: "100%", textAlign: "center", marginTop:"50px"}}>
                                 <a
                                     href="/newRecipie"
                                     style={{ color: "#ff126c" }}
                                 >
-                                    Aún no tienes recetas! <br />
-                                    Haz click aquí para empezar a agregar!
+                                    {thereIsNotARecipieYetText()} <br />
+                                        {clickHereToAddOneText()}
                                 </a>
                             </div>
 

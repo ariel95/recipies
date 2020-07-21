@@ -56,14 +56,14 @@ const Languages = () => {
                     <img src={english} alt="" />
                     <span style={{ marginLeft: "15px" }}>{englishText()}</span>
                 </button>
-                <button
+                {/* <button
                     className="dropdown-item"
                     type="button"
                     onClick={() => dutchClick()}
                 >
                     <img src={dutch} alt="" />
                     <span style={{ marginLeft: "15px" }}>{dutchText()}</span>
-                </button>
+                </button> */}
             </div>
         </div>
     )

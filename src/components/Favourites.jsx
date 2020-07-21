@@ -4,6 +4,7 @@ import Recipie from './Recipie'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFavouritesRecipies } from '../redux/recipiesDucks'
 import Loading from './Loading';
+import { clickHereToStartToSearchText, thereIsNotARecipieYetText } from '../helpers/texts';
 
 const Favourites = () => {
 
@@ -32,13 +33,13 @@ const Favourites = () => {
                             </>
                             :
                             (
-                                <div style={{ width: "100%", textAlign: "center", }}>
+                                <div style={{ width: "100%", textAlign: "center", marginTop:"50px"}}>
                                     <a
                                         href="/"
                                         style={{ color: "#ff126c" }}
                                     >
-                                        ¡Aún no se tienes recetas favoritas! <br />
-                                        ¡Haz click aquí para explorar!
+                                         {thereIsNotARecipieYetText()} <br />
+                                        {clickHereToStartToSearchText()}
                                     </a>
                                 </div>
 

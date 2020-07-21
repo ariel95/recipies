@@ -6,9 +6,12 @@
 }
 
 #down-navbar a.link.selected{
-    color:black;
+    color:#ff126cd4;
 }
 
 #down-navbar a.link{
     color: #a2a2a2;
+}
+#down-navbar a.link:hover{
+    color: #888888;
 }

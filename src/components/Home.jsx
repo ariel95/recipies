@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getRecipies, getMoreRecipies } from '../redux/recipiesDucks'
 import Loading from './Loading';
 import MoreButton from './MoreButton';
+import { clickHereAndBeTheFirstInAddOneText, thereIsNotARecipieYetText } from '../helpers/texts';
 
 const Home = () => {
 
@@ -40,13 +41,13 @@ const Home = () => {
                             </>
                             :
                             (
-                                <div style={{ width: "100%", textAlign: "center", }}>
+                                <div style={{ width: "100%", textAlign: "center", marginTop: "50px"}}>
                                     <a
                                         href="/newRecipie"
                                         style={{ color: "#ff126c" }}
                                     >
-                                        Aún no se publicaron recetas! <br />
-                                        Haz click aquí y se el primero en agregar!
+                                        {thereIsNotARecipieYetText()} <br />
+                                        {clickHereAndBeTheFirstInAddOneText()}
                                     </a>
                                 </div>
 

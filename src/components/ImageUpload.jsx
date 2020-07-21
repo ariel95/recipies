@@ -89,7 +89,7 @@ const ImageUpload = (props) => {
                     (
                         <span> 
                             {dropAFileOr()}
-                    <label className="choose-pic mt-2" htmlFor="pic">&nbsp;{clickHereText()}</label>
+                    <label className="choose-pic mt-2 link" htmlFor="pic">&nbsp;{clickHereText()}</label>
                         </span>
                     )
                 }
@@ -106,9 +106,9 @@ const ImageUpload = (props) => {
                 />
                 {
                     !imageSelected ? 
-                        <label className="choose-pic mt-2" htmlFor="pic">{chooseAPictureText()}</label>
+                        <label className="choose-pic mt-2 link" htmlFor="pic">{chooseAPictureText()}</label>
                     :
-                        <label className="choose-pic mt-2" htmlFor="pic">{changePictureText()}</label>
+                        <label className="choose-pic mt-2 link" htmlFor="pic">{changePictureText()}</label>
                 }
                 
             </div>

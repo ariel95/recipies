@@ -384,5 +384,57 @@ export const lastSearchesText = () =>{
     }
 }
 
+export const thereIsNotARecipieYetText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Aún no se publicaron resetas!";
+        case "english":
+            return "There isn't a recipie yet!";      
+        case "dutch":
+            return "There isn't a recipie yet! in dutch";          
+        default:
+            return "There isn't a recipie yet!";      
+    }
+}
+
+export const clickHereAndBeTheFirstInAddOneText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Haz click aquí y se el primero en agregar!";
+        case "english":
+            return "Click here and be the first in add one!";      
+        case "dutch":
+            return "Click here and be the first in add one! in dutch";          
+        default:
+            return "Click here and be the first in add one!";      
+    }
+}
+
+export const clickHereToStartToSearchText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Haz click aquí para explorar!";
+        case "english":
+            return "Click here to start to search!";      
+        case "dutch":
+            return "Click here to start to search! in dutch";          
+        default:
+            return "Click here to start to search!";      
+    }
+}
+
+export const clickHereToAddOneText = () =>{
+    switch (language){
+        case "spanish":
+            return "¡Haz click aquí para empezar a agregar!";
+        case "english":
+            return "Click here to add one!";      
+        case "dutch":
+            return "Click here to add one! in dutch";          
+        default:
+            return "Click here to add one!";      
+    }
+}
+
 
 

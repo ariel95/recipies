@@ -46,6 +46,13 @@ label.info {
   font-size: 14px;
 }
 
+.link {
+  cursor: pointer;
+}
+svg{
+  cursor: pointer;
+}
+
 .color-app{
   color:var(--app-color);
 }
