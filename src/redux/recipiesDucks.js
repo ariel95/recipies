@@ -461,8 +461,15 @@ const processRecipies = async (docs, u) => {
             let data = doc.data();
             const user = await db.collection('users').doc(data.uid).get()
             let dataUser = user.data();
-            const favourite = await db.collection('favourites_users_recipies').where("uid", "==", u.email).where("rid", "==", doc.id).get()
-            data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
+
+            if(u){
+                const favourite = await db.collection('favourites_users_recipies').where("uid", "==", u.email).where("rid", "==", doc.id).get()
+                data = { ...data, id: doc.id, user: dataUser, favourite: !favourite.empty };
+            }
+            else{
+                data = { ...data, id: doc.id, user: dataUser };
+            }
+            
             array.push(data);
         }
         return array;
